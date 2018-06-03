@@ -15,19 +15,19 @@
         <table class="table">
           <tbody>
             <tr>
-              <td>Version</td>
+              <td>版本</td>
               <td>{{ version.Version }}</td>
             </tr>
             <tr>
-              <td>API version</td>
+              <td>API版本</td>
               <td>{{ version.ApiVersion }}</td>
             </tr>
             <tr>
-              <td>Go version</td>
+              <td>Go版本</td>
               <td>{{ version.GoVersion }}</td>
             </tr>
             <tr>
-              <td>OS type</td>
+              <td>OS类型</td>
               <td>{{ version.Os }}</td>
             </tr>
             <tr>
@@ -35,11 +35,11 @@
               <td>{{ info.OperatingSystem }}</td>
             </tr>
             <tr>
-              <td>Architecture</td>
+              <td>架构</td>
               <td>{{ version.Arch }}</td>
             </tr>
             <tr>
-              <td>Kernel version</td>
+              <td>内核版本</td>
               <td>{{ version.KernelVersion }}</td>
             </tr>
           </tbody>
@@ -99,15 +99,15 @@
         <table class="table">
           <tbody>
             <tr ng-if="info.Plugins.Volume">
-              <td>Volume</td>
+              <td>存储卷</td>
               <td>{{ info.Plugins.Volume|arraytostr: ', '}}</td>
             </tr>
             <tr ng-if="info.Plugins.Network">
-              <td>Network</td>
+              <td>网络</td>
               <td>{{ info.Plugins.Network|arraytostr: ', '}}</td>
             </tr>
             <tr ng-if="info.Plugins.Authorization">
-              <td>Authorization</td>
+              <td>授权</td>
               <td>{{ info.Plugins.Authorization|arraytostr: ', '}}</td>
             </tr>
           </tbody>

@@ -1,7 +1,7 @@
 <rd-header>
   <rd-header-title title="Build image"></rd-header-title>
   <rd-header-content>
-    <a ui-sref="docker.images">Images</a> &gt; Build image
+    <a ui-sref="docker.images">镜像</a> &gt; 构建镜像
   </rd-header-content>
 </rd-header>
 
@@ -12,37 +12,37 @@
         <uib-tabset active="state.activeTab">
           <uib-tab index="0">
             <uib-tab-heading>
-              <i class="fa fa-wrench space-right" aria-hidden="true"></i> Builder
+              <i class="fa fa-wrench space-right" aria-hidden="true"></i> 构建器
             </uib-tab-heading>
             <form class="form-horizontal">
               <div class="col-sm-12 form-section-title">
-                Naming
+                名称
               </div>
               <!-- names -->
               <div class="form-group">
                 <span class="col-sm-12 text-muted small">
-                  You can specify multiple names to your image.
+                  你可以给镜像指定多个名称
                 </span>
               </div>
               <div class="form-group">
                 <div class="col-sm-12">
-                  <label class="control-label text-left">Names</label>
+                  <label class="control-label text-left">名称</label>
                   <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addImageName()">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i> add additional name
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 增加额外的名称
                   </span>
                 </div>
               </div>
               <!-- !names -->
               <div class="form-group" ng-if="formValues.ImageNames.length === 0">
                 <span class="col-sm-12 text-danger small">
-                  <i class="fa fa-exclamation-triangle space-right" aria-hidden="true"></i>You must specify at least one name for the image.
+                  <i class="fa fa-exclamation-triangle space-right" aria-hidden="true"></i>你最少要给镜像指定一个名称
                 </span>
               </div>
               <!-- name-input-list -->
               <div ng-if="formValues.ImageNames.length > 0">
                 <div class="form-group">
                   <span class="col-sm-12 text-muted small">
-                    A name must be specified in one of the following formats: <code>name:tag</code>, <code>repository/name:tag</code> or <code>registryfqdn:port/repository/name:tag</code> format. If you omit the tag the default <b>latest</b> value is assumed.
+                    你必须使用如下的命名格式: <code>name:tag</code>, <code>repository/name:tag</code> or <code>registryfqdn:port/repository/name:tag</code> format. 如果你省略了标签， <b>latest</b> 将会被使用.
                   </span>
                 </div>
                 <div class="form-group" >
@@ -51,7 +51,7 @@
                       <div ng-repeat="item in formValues.ImageNames track by $index" style="margin-top: 2px;">
                         <!-- name-input -->
                         <div class="input-group col-sm-5 input-group-sm">
-                          <span class="input-group-addon">name</span>
+                          <span class="input-group-addon">名称</span>
                           <input type="text" class="form-control" ng-model="item.Name" placeholder="e.g. myImage:myTag" auto-focus>
                           <span class="input-group-addon"><i ng-class="{true: 'fa fa-check green-icon', false: 'fa fa-times red-icon'}[item.Name !== '']" aria-hidden="true"></i></span>
                         </div>
@@ -71,7 +71,7 @@
               <!-- !name-input-list -->
               <!-- build-method -->
               <div class="col-sm-12 form-section-title">
-                Build method
+                构建方式
               </div>
               <div class="form-group"></div>
               <div class="form-group" style="margin-bottom: 0">
@@ -81,9 +81,9 @@
                     <label for="method_editor">
                       <div class="boxselector_header">
                         <i class="fa fa-edit" aria-hidden="true" style="margin-right: 2px;"></i>
-                        Web editor
+                        网页编辑器
                       </div>
-                      <p>Use our Web editor</p>
+                      <p>使用我们的网页编辑器</p>
                     </label>
                   </div>
                   <div>
@@ -91,9 +91,9 @@
                     <label for="method_upload">
                       <div class="boxselector_header">
                         <i class="fa fa-upload" aria-hidden="true" style="margin-right: 2px;"></i>
-                        Upload
+                        上传
                       </div>
-                      <p>Upload a tarball or a Dockerfile from your computer</p>
+                      <p>从你的电脑里面上传一个tarball或者Dockerfile</p>
                     </label>
                   </div>
                   <div>
@@ -103,7 +103,7 @@
                         <i class="fa fa-globe" aria-hidden="true" style="margin-right: 2px;"></i>
                         URL
                       </div>
-                      <p>Specify an URL to a file</p>
+                      <p>指定一个指向文件的URL</p>
                     </label>
                   </div>
                 </div>
@@ -112,11 +112,11 @@
               <!-- web-editor -->
               <div ng-show="state.BuildType === 'editor'">
                 <div class="col-sm-12 form-section-title">
-                  Web editor
+                  网页编辑器
                 </div>
                 <div class="form-group">
                   <span class="col-sm-12 text-muted small">
-                    You can get more information about Dockerfile format in the <a href="https://docs.docker.com/engine/reference/builder/" target="_blank">official documentation</a>.
+                    Dockerfile的编写格式你可以通过这个链接来查询 <a href="https://docs.docker.com/engine/reference/builder/" target="_blank">official documentation</a>.
                   </span>
                 </div>
                 <div class="form-group">
@@ -196,7 +196,7 @@
               <!-- !url -->
               <div ng-if="applicationState.endpoint.mode.agentProxy">
                 <div class="col-sm-12 form-section-title">
-                  Deployment
+                  部署
                 </div>
                 <!-- node-selection -->
                 <node-selector
@@ -206,7 +206,7 @@
               </div>
               <!-- actions -->
               <div class="col-sm-12 form-section-title">
-                Actions
+                操作
               </div>
               <div class="form-group">
                 <div class="col-sm-12">
@@ -216,8 +216,8 @@
                     || (state.BuildType === 'url' && (!formValues.URL || !formValues.Path))
                     || (formValues.ImageNames.length === 0 || !validImageNames())"
                     ng-click="buildImage()" button-spinner="state.actionInProgress">
-                    <span ng-hide="state.actionInProgress">Build the image</span>
-                    <span ng-show="state.actionInProgress">Image building in progress...</span>
+                    <span ng-hide="state.actionInProgress">构建镜像</span>
+                    <span ng-show="state.actionInProgress">镜像构建中...</span>
                   </button>
                   <span class="text-danger" ng-if="state.formValidationError" style="margin-left: 5px;">{{ state.formValidationError }}</span>
                 </div>
@@ -227,11 +227,11 @@
           </uib-tab>
           <uib-tab index="1" disable="!buildLogs">
             <uib-tab-heading>
-              <i class="fa fa-file-alt space-right" aria-hidden="true"></i> Output
+              <i class="fa fa-file-alt space-right" aria-hidden="true"></i> 输出
             </uib-tab-heading>
             <pre class="log_viewer">
               <div ng-repeat="line in buildLogs track by $index" class="line"><p class="inner_line" ng-click="active=!active" ng-class="{'line_selected': active}">{{ line }}</p></div>
-              <div ng-if="!buildLogs.length" class="line"><p class="inner_line">No build output available.</p></div>
+              <div ng-if="!buildLogs.length" class="line"><p class="inner_line">没有可用的构建输出.</p></div>
             </pre>
           </uib-tab>
         </uib-tabset>

@@ -1,7 +1,7 @@
 <rd-header>
   <rd-header-title title="Network details"></rd-header-title>
   <rd-header-content>
-    <a ui-sref="docker.networks">Networks</a> &gt; <a ui-sref="docker.networks.network({id: network.Id})">{{ network.Name }}</a>
+    <a ui-sref="docker.networks">网络</a> &gt; <a ui-sref="docker.networks.network({id: network.Id})">{{ network.Name }}</a>
   </rd-header-content>
 </rd-header>
 
@@ -13,30 +13,30 @@
         <table class="table">
           <tbody>
             <tr>
-              <td>Name</td>
+              <td>名称</td>
               <td>{{ network.Name }}</td>
             </tr>
             <tr>
               <td>ID</td>
               <td>
                 {{ network.Id }}
-                <button class="btn btn-xs btn-danger" ng-click="removeNetwork(network.Id)"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>Delete this network</button>
+                <button class="btn btn-xs btn-danger" ng-click="removeNetwork(network.Id)"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>删除这个网络</button>
               </td>
             </tr>
             <tr>
-              <td>Driver</td>
+              <td>驱动</td>
               <td>{{ network.Driver }}</td>
             </tr>
             <tr>
-              <td>Scope</td>
+              <td>域</td>
               <td>{{ network.Scope }}</td>
             </tr>
             <tr ng-if="network.IPAM.Config[0].Subnet">
-              <td>Subnet</td>
+              <td>子网</td>
               <td>{{ network.IPAM.Config[0].Subnet }}</td>
             </tr>
             <tr ng-if="network.IPAM.Config[0].Gateway">
-              <td>Gateway</td>
+              <td>网关</td>
               <td>{{ network.IPAM.Config[0].Gateway }}</td>
             </tr>
           </tbody>
@@ -81,11 +81,11 @@
       <rd-widget-body classes="no-padding">
         <table class="table">
           <thead>
-            <th>Container Name</th>
+            <th>容器名称</th>
             <th>IPv4 Address</th>
             <th>IPv6 Address</th>
             <th>MacAddress</th>
-            <th>Actions</th>
+            <th>操作</th>
           </thead>
           <tbody>
             <tr ng-repeat="container in containersInNetwork">
@@ -94,7 +94,7 @@
               <td>{{ container.IPv6Address || '-' }}</td>
               <td>{{ container.MacAddress || '-' }}</td>
               <td>
-                <button type="button" class="btn btn-xs btn-danger" ng-click="containerLeaveNetwork(network, container)"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>Leave Network</button>
+                <button type="button" class="btn btn-xs btn-danger" ng-click="containerLeaveNetwork(network, container)"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>离开网络</button>
               </td>
             </tr>
           </tbody>

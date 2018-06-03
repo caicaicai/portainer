@@ -1,7 +1,7 @@
 <rd-header>
   <rd-header-title title="Create stack"></rd-header-title>
   <rd-header-content>
-    <a ui-sref="docker.stacks">Stacks</a> > Add stack
+    <a ui-sref="docker.stacks">Stacks</a> > 增加 stack
   </rd-header-content>
 </rd-header>
 
@@ -12,7 +12,7 @@
         <form class="form-horizontal">
           <!-- name-input -->
           <div class="form-group">
-            <label for="stack_name" class="col-sm-1 control-label text-left">Name</label>
+            <label for="stack_name" class="col-sm-1 control-label text-left">名称</label>
             <div class="col-sm-11">
               <input type="text" class="form-control" ng-model="formValues.Name" id="stack_name" placeholder="e.g. myStack" auto-focus>
             </div>
@@ -20,12 +20,12 @@
           <!-- !name-input -->
           <div class="form-group">
             <span class="col-sm-12 text-muted small">
-              This stack will be deployed using the equivalent of the <code>docker stack deploy</code> command.
+                stack将会使用  <code>docker stack deploy</code> 指令来进行部署.
             </span>
           </div>
           <!-- build-method -->
           <div class="col-sm-12 form-section-title">
-            Build method
+            构建方式
           </div>
           <div class="form-group"></div>
           <div class="form-group" style="margin-bottom: 0">
@@ -35,9 +35,9 @@
                 <label for="method_editor">
                   <div class="boxselector_header">
                     <i class="fa fa-edit" aria-hidden="true" style="margin-right: 2px;"></i>
-                    Web editor
+                    网页编辑器
                   </div>
-                  <p>Use our Web editor</p>
+                  <p>使用我们的网页编辑器进行编辑</p>
                 </label>
               </div>
               <div>
@@ -45,9 +45,9 @@
                 <label for="method_upload">
                   <div class="boxselector_header">
                     <i class="fa fa-upload" aria-hidden="true" style="margin-right: 2px;"></i>
-                    Upload
+                    上传
                   </div>
-                  <p>Upload from your computer</p>
+                  <p>通过你的电脑上传配置文件</p>
                 </label>
               </div>
               <div>
@@ -57,7 +57,7 @@
                     <i class="fab fa-git" aria-hidden="true" style="margin-right: 2px;"></i>
                     Repository
                   </div>
-                  <p>Use a git repository</p>
+                  <p>使用 git repository</p>
                 </label>
               </div>
             </div>
@@ -66,11 +66,11 @@
           <!-- web-editor -->
           <div ng-show="state.Method === 'editor'">
             <div class="col-sm-12 form-section-title">
-              Web editor
+              网页编辑器
             </div>
             <div class="form-group">
               <span class="col-sm-12 text-muted small">
-                You can get more information about Compose file format in the <a href="https://docs.docker.com/compose/compose-file/" target="_blank">official documentation</a>.
+                你可以通过官方文档来了解Compose文件该如何编写 <a href="https://docs.docker.com/compose/compose-file/" target="_blank">official documentation</a>.
               </span>
             </div>
             <div class="form-group">
@@ -88,16 +88,16 @@
           <!-- upload -->
           <div ng-show="state.Method === 'upload'">
             <div class="col-sm-12 form-section-title">
-              Upload
+              上传文件
             </div>
             <div class="form-group">
               <span class="col-sm-12 text-muted small">
-                You can upload a Compose file from your computer.
+                你可以通过你的电脑来上传Compose文件。
               </span>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <button class="btn btn-sm btn-primary" ngf-select ng-model="formValues.StackFile">Select file</button>
+                <button class="btn btn-sm btn-primary" ngf-select ng-model="formValues.StackFile">选择一个文件</button>
                 <span style="margin-left: 5px;">
                   {{ formValues.StackFile.name }}
                   <i class="fa fa-times red-icon" ng-if="!formValues.StackFile" aria-hidden="true"></i>
@@ -113,7 +113,7 @@
             </div>
             <div class="form-group">
               <span class="col-sm-12 text-muted small">
-                You can use the URL of a git repository.
+                你通过配置 git repository 的URL来进行配置.
               </span>
             </div>
             <div class="form-group">
@@ -136,7 +136,7 @@
             <div class="form-group">
               <div class="col-sm-12">
                 <label class="control-label text-left">
-                  Authentication
+                  验证
                 </label>
                 <label class="switch" style="margin-left: 20px;">
                   <input type="checkbox" ng-model="formValues.RepositoryAuthentication"><i></i>
@@ -144,12 +144,12 @@
               </div>
             </div>
             <div class="form-group" ng-if="formValues.RepositoryAuthentication">
-              <label for="repository_username" class="col-sm-1 control-label text-left">Username</label>
+              <label for="repository_username" class="col-sm-1 control-label text-left">用户名</label>
               <div class="col-sm-11 col-md-5">
                 <input type="text" class="form-control" ng-model="formValues.RepositoryUsername" name="repository_username" placeholder="myGitUser">
               </div>
               <label for="repository_password" class="col-sm-1 margin-sm-top control-label text-left">
-                Password
+                密码
               </label>
               <div class="col-sm-11 col-md-5 margin-sm-top">
                 <input type="password" class="form-control" ng-model="formValues.RepositoryPassword" name="repository_password" placeholder="myPassword">
@@ -157,25 +157,25 @@
             </div>
           </div>
           <div class="col-sm-12 form-section-title">
-            Environment
+            环境
           </div>
           <!-- environment-variables -->
           <div class="form-group">
             <div class="col-sm-12" style="margin-top: 5px;">
-              <label class="control-label text-left">Environment variables</label>
+              <label class="control-label text-left">环境变量</label>
               <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addEnvironmentVariable()">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> add environment variable
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> 增加环境变量
               </span>
             </div>
             <!-- environment-variable-input-list -->
             <div class="col-sm-12 form-inline" style="margin-top: 10px;">
               <div ng-repeat="variable in formValues.Env" style="margin-top: 2px;">
                 <div class="input-group col-sm-5 input-group-sm">
-                  <span class="input-group-addon">name</span>
+                  <span class="input-group-addon">名称</span>
                   <input type="text" class="form-control" ng-model="variable.name" placeholder="e.g. FOO">
                 </div>
                 <div class="input-group col-sm-5 input-group-sm">
-                  <span class="input-group-addon">value</span>
+                  <span class="input-group-addon">值</span>
                   <input type="text" class="form-control" ng-model="variable.value" placeholder="e.g. bar">
                 </div>
                 <button class="btn btn-sm btn-danger" type="button" ng-click="removeEnvironmentVariable($index)">
@@ -190,7 +190,7 @@
           <por-access-control-form form-data="formValues.AccessControlData" ng-if="applicationState.application.authentication"></por-access-control-form>
           <!-- actions -->
           <div class="col-sm-12 form-section-title">
-            Actions
+            操作
           </div>
           <div class="form-group">
             <div class="col-sm-12">
@@ -198,8 +198,8 @@
               || (state.Method === 'upload' && !formValues.StackFile)
               || (state.Method === 'repository' && ((!formValues.RepositoryURL || !formValues.ComposeFilePathInRepository) || (formValues.RepositoryAuthentication && (!formValues.RepositoryUsername || !formValues.RepositoryPassword))))
               || !formValues.Name" ng-click="deployStack()" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">Deploy the stack</span>
-                <span ng-show="state.actionInProgress">Deployment in progress...</span>
+                <span ng-hide="state.actionInProgress">部署stack</span>
+                <span ng-show="state.actionInProgress">正在部署中...</span>
               </button>
               <span class="text-danger" ng-if="state.formValidationError" style="margin-left: 5px;">{{ state.formValidationError }}</span>
             </div>

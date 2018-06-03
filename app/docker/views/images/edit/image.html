@@ -1,7 +1,7 @@
 <rd-header>
   <rd-header-title title="Image details"></rd-header-title>
   <rd-header-content>
-    <a ui-sref="docker.images">Images</a> &gt; <a ui-sref="docker.images.image({id: image.Id})">{{ image.Id }}</a>
+    <a ui-sref="docker.images">镜像</a> &gt; <a ui-sref="docker.images.image({id: image.Id})">{{ image.Id }}</a>
   </rd-header-content>
 </rd-header>
 
@@ -41,11 +41,11 @@
             </div>
             <div class="col-sm-12">
               <span id="downloadResourceHint" class="createResource" style="display: none; margin-left: 0;">
-                Download in progress...
+                正在下载...
                 <i class="fa fa-circle-notch fa-spin" aria-hidden="true" style="margin-left: 2px;"></i>
               </span>
               <span id="uploadResourceHint" class="createResource" style="display: none; margin-left: 0;">
-                Upload in progress...
+                正在上传...
                 <i class="fa fa-circle-notch fa-spin" aria-hidden="true" style="margin-left: 2px;"></i>
               </span>
             </div>

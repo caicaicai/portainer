@@ -6,64 +6,64 @@
       <table class="table">
         <tbody>
           <tr>
-            <td>Update Parallelism</td>
+            <td>更新并发模式</td>
             <td>
               <input class="input-sm" type="number" ng-model="service.UpdateParallelism" ng-change="updateServiceAttribute(service, 'UpdateParallelism')" ng-disabled="isUpdating"/>
             </td>
             <td>
               <p class="small text-muted" style="margin-top: 10px;">
-                Maximum number of tasks to be updated simultaneously (0 to update all at once).
+                要同时更新的最大任务数（一次全部更新为0）。
               </p>
             </td>
           </tr>
           <tr>
-            <td>Update Delay</td>
+            <td>更新延迟</td>
             <td>
               <input class="input-sm" type="text" ng-model="service.UpdateDelay" ng-change="updateServiceAttribute(service, 'UpdateDelay')" ng-pattern="/^([0-9]+)(h|m|s|ms|us|ns)$/i" ng-disabled="isUpdating"/>
             </td>
             <td>
               <p class="small text-muted" style="margin-top: 10px;">
-                Amount of time between updates expressed by a number followed by unit (ns|us|ms|s|m|h). Example: 1m.
+                用数字表示的更新之间的时间间隔（单位：ns | us | ms | s | m | h）。 例如：1m表示一分钟。
               </p>
             </td>
           </tr>
           <tr>
-            <td>Update Failure Action</td>
+            <td>更新失败的话执行的动作</td>
             <td>
               <div class="form-group">
                 <label class="radio-inline">
                   <input type="radio" name="failure_action" ng-model="service.UpdateFailureAction" value="continue" ng-change="updateServiceAttribute(service, 'UpdateFailureAction')" ng-disabled="isUpdating">
-                  Continue
+                  继续
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="failure_action" ng-model="service.UpdateFailureAction" value="pause" ng-change="updateServiceAttribute(service, 'UpdateFailureAction')" ng-disabled="isUpdating">
-                  Pause
+                  暂停
                 </label>
               </div>
             </td>
             <td>
               <p class="small text-muted" style="margin-top: 10px;">
-                Action taken on failure to start after update.
+                如果更新失败执行的动作
               </p>
             </td>
           </tr>
           <tr ng-if="applicationState.endpoint.apiVersion >= 1.29">
-            <td>Order</td>
+            <td>更新顺序</td>
             <td>
               <div class="form-group">
                 <label class="radio-inline">
                   <input type="radio" name="updateconfig_order" ng-model="service.UpdateOrder" value="start-first" ng-change="updateServiceAttribute(service, 'UpdateOrder')" ng-disabled="isUpdating">
-                  start-first
+                  先启动(start-first)
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="updateconfig_order" ng-model="service.UpdateOrder" value="stop-first" ng-change="updateServiceAttribute(service, 'UpdateOrder')" ng-disabled="isUpdating">
-                  stop-first
+                  先停止(stop-first)
                 </label>
               </div>
             </td>
             <td>
               <p class="small text-muted" style="margin-top: 10px;">
-                Operation order on failure.
+                失败时的执行顺序
               </p>
             </td>
           </tr>
@@ -73,13 +73,13 @@
     <rd-widget-footer>
       <div class="btn-toolbar" role="toolbar">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-primary btn-sm" ng-disabled="!hasChanges(service, ['UpdateFailureAction', 'UpdateDelay', 'UpdateParallelism', 'UpdateOrder'])" ng-click="updateService(service)">Apply changes</button>
+          <button type="button" class="btn btn-primary btn-sm" ng-disabled="!hasChanges(service, ['UpdateFailureAction', 'UpdateDelay', 'UpdateParallelism', 'UpdateOrder'])" ng-click="updateService(service)">应该更改</button>
           <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-            <li><a ng-click="cancelChanges(service, ['UpdateFailureAction', 'UpdateDelay', 'UpdateParallelism', 'UpdateOrder'])">Reset changes</a></li>
-            <li><a ng-click="cancelChanges(service)">Reset all changes</a></li>
+            <li><a ng-click="cancelChanges(service, ['UpdateFailureAction', 'UpdateDelay', 'UpdateParallelism', 'UpdateOrder'])">重置更改</a></li>
+            <li><a ng-click="cancelChanges(service)">重置所有更改</a></li>
           </ul>
         </div>
       </div>

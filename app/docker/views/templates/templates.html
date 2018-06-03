@@ -1,10 +1,10 @@
 <rd-header id="view-top">
-  <rd-header-title title="Application templates list">
+  <rd-header-title title="应用模板列表">
     <a data-toggle="tooltip" title="Refresh" ui-sref="docker.templates" ui-sref-opts="{reload: true}">
       <i class="fa fa-sync" aria-hidden="true"></i>
     </a>
   </rd-header-title>
-  <rd-header-content>Templates</rd-header-content>
+  <rd-header-content>模板</rd-header-content>
 </rd-header>
 
 <div class="row">
@@ -13,7 +13,7 @@
     <rd-widget>
       <rd-widget-custom-header icon="state.selectedTemplate.Logo" title="state.selectedTemplate.Title">
         <div class="pull-right">
-          <button type="button" class="btn btn-sm btn-primary" ng-click="unselectTemplate()">Hide</button>
+          <button type="button" class="btn btn-sm btn-primary" ng-click="unselectTemplate()">隐藏</button>
         </div>
       </rd-widget-custom-header>
       <rd-widget-body classes="padding">
@@ -22,7 +22,7 @@
           <!-- description -->
           <div ng-if="state.selectedTemplate.Note">
             <div class="col-sm-12 form-section-title">
-              Information
+              信息
             </div>
             <div class="form-group">
               <div class="col-sm-12">
@@ -32,11 +32,11 @@
           </div>
           <!-- !description -->
           <div class="col-sm-12 form-section-title">
-            Configuration
+            配置
           </div>
           <!-- name-input -->
           <div class="form-group">
-            <label for="container_name" class="col-sm-2 control-label text-left">Name</label>
+            <label for="container_name" class="col-sm-2 control-label text-left">名称</label>
             <div class="col-sm-10">
               <input type="text" name="container_name" class="form-control" ng-model="formValues.name" placeholder="e.g. myStack" required>
             </div>
@@ -49,7 +49,7 @@
               <!-- <input ng-if="!var.values && (!var.type || !var.type === 'container')" type="text" class="form-control" ng-model="var.value" id="field_{{ $index }}"> -->
               <input type="text" class="form-control" ng-if="!var.select" ng-model="var.value" id="field_{{ $index }}">
               <select class="form-control" ng-if="var.select" ng-model="var.value" id="field_{{ $index }}">
-                <option selected disabled hidden value="">Select value</option>
+                <option selected disabled hidden value="">选择值</option>
                 <option ng-repeat="choice in var.select" value="{{ choice.value }}">{{ choice.text }}</option>
               </select>
             </div>
@@ -60,13 +60,13 @@
           <!-- !access-control -->
           <!-- actions -->
           <div class="col-sm-12 form-section-title">
-            Actions
+            操作
           </div>
           <div class="form-group">
             <div class="col-sm-12">
               <button type="button" class="btn btn-primary btn-sm" ng-disabled="state.actionInProgress || !formValues.name" ng-click="createTemplate()" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">Deploy the stack</span>
-                <span ng-show="state.actionInProgress">Deployment in progress...</span>
+                <span ng-hide="state.actionInProgress">部署stack</span>
+                <span ng-show="state.actionInProgress">正在部署中...</span>
               </button>
               <span class="text-danger" ng-if="state.formValidationError" style="margin-left: 5px;">{{ state.formValidationError }}</span>
             </div>
@@ -83,7 +83,7 @@
     <rd-widget>
       <rd-widget-custom-header icon="state.selectedTemplate.Logo" title="state.selectedTemplate.Image">
         <div class="pull-right">
-          <button type="button" class="btn btn-sm btn-primary" ng-click="unselectTemplate()">Hide</button>
+          <button type="button" class="btn btn-sm btn-primary" ng-click="unselectTemplate()">隐藏</button>
         </div>
       </rd-widget-custom-header>
       <rd-widget-body classes="padding">
@@ -92,7 +92,7 @@
           <!-- description -->
           <div ng-if="state.selectedTemplate.Note">
             <div class="col-sm-12 form-section-title">
-              Information
+              信息
             </div>
             <div class="form-group">
               <div class="col-sm-12">
@@ -102,11 +102,11 @@
           </div>
           <!-- !description -->
           <div class="col-sm-12 form-section-title">
-            Configuration
+            配置
           </div>
           <!-- name-input -->
           <div class="form-group">
-            <label for="container_name" class="col-sm-2 control-label text-left">Name</label>
+            <label for="container_name" class="col-sm-2 control-label text-left">名称</label>
             <div class="col-sm-10">
               <input type="text" name="container_name" class="form-control" ng-model="formValues.name" placeholder="e.g. web (optional)">
             </div>
@@ -114,10 +114,10 @@
           <!-- !name-input -->
           <!-- network-input -->
           <div class="form-group">
-            <label for="container_network" class="col-sm-2 control-label text-left">Network</label>
+            <label for="container_network" class="col-sm-2 control-label text-left">网络</label>
             <div class="col-sm-10">
               <select class="form-control" ng-options="net.Name for net in availableNetworks" ng-model="formValues.network">
-                <option disabled hidden value="">Select a network</option>
+                <option disabled hidden value="">选择一个网络</option>
               </select>
             </div>
           </div>
@@ -127,7 +127,7 @@
             <label for="field_{{ $index }}" class="col-sm-2 control-label text-left">{{ var.label }}</label>
             <div class="col-sm-10">
               <select ng-if="var.type === 'container'" ng-options="container|containername for container in runningContainers" class="form-control" ng-model="var.value">
-                <option selected disabled hidden value="">Select a container</option>
+                <option selected disabled hidden value="">选择一个容器</option>
               </select>
               <input ng-if="!var.type || !var.type === 'container'" type="text" class="form-control" ng-model="var.value" id="field_{{ $index }}">
             </div>
@@ -139,10 +139,10 @@
           <div class="form-group">
             <div class="col-sm-12">
               <a class="small interactive" ng-if="!state.showAdvancedOptions" ng-click="state.showAdvancedOptions = true;">
-                <i class="fa fa-plus space-right" aria-hidden="true"></i> Show advanced options
+                <i class="fa fa-plus space-right" aria-hidden="true"></i> 查看高级选项
               </a>
               <a class="small interactive" ng-if="state.showAdvancedOptions" ng-click="state.showAdvancedOptions = false;">
-                <i class="fa fa-minus space-right" aria-hidden="true"></i> Hide advanced options
+                <i class="fa fa-minus space-right" aria-hidden="true"></i> 隐藏高级选项
               </a>
             </div>
           </div>
@@ -150,13 +150,13 @@
             <!-- port-mapping -->
             <div class="form-group" >
               <div class="col-sm-12" style="margin-top: 5px;">
-                <label class="control-label text-left">Port mapping</label>
+                <label class="control-label text-left">端口映射</label>
                 <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addPortBinding()">
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i> map additional port
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i> 映射额外的端口
                 </span>
               </div>
               <div class="col-sm-12" style="margin-top: 10px" ng-if="state.selectedTemplate.Ports.length > 0">
-                <span class="small text-muted">Portainer will automatically assign a port if you leave the host port empty.</span>
+                <span class="small text-muted">如果您将主机端口留空，平台将自动分配一个端口。</span>
               </div>
               <!-- !port-mapping -->
               <!-- port-mapping-input-list -->
@@ -197,13 +197,13 @@
             <!-- volume-mapping -->
             <div class="form-group" >
               <div class="col-sm-12" style="margin-top: 5px;">
-                <label class="control-label text-left">Volume mapping</label>
+                <label class="control-label text-left">卷映射</label>
                 <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addVolume()">
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i> map additional volume
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i> 挂载额外存储卷
                 </span>
               </div>
               <div class="col-sm-12" style="margin-top: 10px" ng-if="state.selectedTemplate.Volumes.length > 0">
-                <span class="small text-muted">Portainer will automatically create and map a local volume when using the <b>auto</b> option.</span>
+                <span class="small text-muted">如果你勾选了<b>auto</b> 选项，平台将会为你自动创建一个本地存储卷.</span>
               </div>
               <div ng-repeat="volume in state.selectedTemplate.Volumes">
                 <div class="col-sm-12" style="margin-top: 10px;">
@@ -211,16 +211,16 @@
                   <div class="col-sm-12 form-inline">
                     <!-- container-path -->
                     <div class="input-group input-group-sm col-sm-6">
-                      <span class="input-group-addon">container</span>
+                      <span class="input-group-addon">容器</span>
                       <input type="text" class="form-control" ng-model="volume.containerPath" placeholder="e.g. /path/in/container">
                     </div>
                     <!-- !container-path -->
                     <!-- volume-type -->
                     <div class="input-group col-sm-5" style="margin-left: 5px;">
                       <div class="btn-group btn-group-sm">
-                        <label class="btn btn-primary" ng-model="volume.type" uib-btn-radio="'auto'" ng-click="volume.name = ''">Auto</label>
-                        <label class="btn btn-primary" ng-model="volume.type" uib-btn-radio="'volume'" ng-click="volume.name = ''">Volume</label>
-                        <label class="btn btn-primary" ng-model="volume.type" uib-btn-radio="'bind'" ng-click="volume.name = ''" ng-if="isAdmin || allowBindMounts">Bind</label>
+                        <label class="btn btn-primary" ng-model="volume.type" uib-btn-radio="'auto'" ng-click="volume.name = ''">自动(Auto)</label>
+                        <label class="btn btn-primary" ng-model="volume.type" uib-btn-radio="'volume'" ng-click="volume.name = ''">存储卷(Volume)</label>
+                        <label class="btn btn-primary" ng-model="volume.type" uib-btn-radio="'bind'" ng-click="volume.name = ''" ng-if="isAdmin || allowBindMounts">绑定(Bind)</label>
                       </div>
                       <button class="btn btn-sm btn-danger" type="button" ng-click="removeVolume($index)">
                         <i class="fa fa-trash" aria-hidden="true"></i>
@@ -234,24 +234,24 @@
                     <i class="fa fa-long-arrow-alt-right" aria-hidden="true"></i>
                     <!-- volume -->
                     <div class="input-group input-group-sm col-sm-6" ng-if="volume.type === 'volume'">
-                      <span class="input-group-addon">volume</span>
+                      <span class="input-group-addon">存储卷</span>
                       <select class="form-control" ng-model="volume.name">
-                        <option selected disabled hidden value="">Select a volume</option>
+                        <option selected disabled hidden value="">选择一个存储卷</option>
                         <option ng-repeat="vol in availableVolumes" ng-value="vol.Name">{{ vol.Name|truncate:30}}</option>
                       </select>
                     </div>
                     <!-- !volume -->
                     <!-- bind -->
                     <div class="input-group input-group-sm col-sm-6" ng-if="volume.type === 'bind'">
-                      <span class="input-group-addon">host</span>
+                      <span class="input-group-addon">主机</span>
                       <input type="text" class="form-control" ng-model="volume.name" placeholder="e.g. /path/on/host">
                     </div>
                     <!-- !bind -->
                     <!-- read-only -->
                     <div class="input-group input-group-sm col-sm-5" style="margin-left: 5px;">
                       <div class="btn-group btn-group-sm">
-                        <label class="btn btn-primary" ng-model="volume.readOnly" uib-btn-radio="false">Writable</label>
-                        <label class="btn btn-primary" ng-model="volume.readOnly" uib-btn-radio="true">Read-only</label>
+                        <label class="btn btn-primary" ng-model="volume.readOnly" uib-btn-radio="false">可写入的</label>
+                        <label class="btn btn-primary" ng-model="volume.readOnly" uib-btn-radio="true">只读的</label>
                       </div>
                     </div>
                     <!-- !read-only -->
@@ -288,9 +288,9 @@
             <!-- Label -->
             <div class="form-group" >
               <div class="col-sm-12" style="margin-top: 5px;">
-                <label class="control-label text-left">Labels</label>
+                <label class="control-label text-left">标签</label>
                 <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addLabel()">
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i> add label
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i> 增加标签
                 </span>
               </div>
                 <!-- labels-input-list -->
@@ -298,11 +298,11 @@
                 <div class="col-sm-12 form-inline" style="margin-top: 10px;">
                   <div ng-repeat="label in state.selectedTemplate.Labels" style="margin-top: 2px;">
                     <div class="input-group col-sm-5 input-group-sm">
-                      <span class="input-group-addon">name</span>
+                      <span class="input-group-addon">名称</span>
                       <input type="text" class="form-control" ng-model="label.name" placeholder="e.g. com.example.foo">
                     </div>
                     <div class="input-group col-sm-5 input-group-sm">
-                      <span class="input-group-addon">value</span>
+                      <span class="input-group-addon">值</span>
                       <input type="text" class="form-control" ng-model="label.value" placeholder="e.g. bar">
                     </div>
                     <button class="btn btn-sm btn-danger" type="button" ng-click="removeLabel($index)">
@@ -316,7 +316,7 @@
             <!-- !Label -->
             <!-- hostname -->
             <div class="form-group">
-              <label for="container_hostname" class="col-sm-2 control-label text-left">Hostname</label>
+              <label for="container_hostname" class="col-sm-2 control-label text-left">主机名</label>
               <div class="col-sm-10">
                 <input type="text" name="container_hostname" class="form-control" ng-model="state.selectedTemplate.Hostname" placeholder="leave empty to use docker default">
               </div>
@@ -331,8 +331,8 @@
           <div class="form-group">
             <div class="col-sm-12">
               <button type="button" class="btn btn-primary btn-sm" ng-disabled="state.actionInProgress || !formValues.network" ng-click="createTemplate()" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">Deploy the container</span>
-                <span ng-show="state.actionInProgress">Deployment in progress...</span>
+                <span ng-hide="state.actionInProgress">部署容器</span>
+                <span ng-show="state.actionInProgress">正在部署中...</span>
               </button>
               <span class="text-danger" ng-if="state.formValidationError" style="margin-left: 5px;">{{ state.formValidationError }}</span>
             </div>
@@ -352,9 +352,9 @@
     <rd-template-widget>
       <rd-widget-header icon="fa-rocket" title="Templates">
         <div ng-if="availableCategories.length > 0" class="pull-right">
-          Category
+          分类
           <select ng-model="state.filters.Categories">
-            <option value="!">All</option>
+            <option value="!">所有</option>
             <option ng-repeat="category in availableCategories" value="{{ category }}">{{ category }}</option>
           </select>
         </div>
@@ -364,15 +364,15 @@
           <!-- Platform -->
           <span class="btn-group btn-group-sm" style="margin-right: 15px;">
             <label class="btn btn-primary" ng-model="state.filters.Platform" uib-btn-radio="'!'">
-              All
+              所有
             </label>
             <label class="btn btn-primary" ng-model="state.filters.Platform" uib-btn-radio="'windows'">
               <i class="fab fa-windows" aria-hidden="true"></i>
-              Windows
+              Windows平台
             </label>
             <label class="btn btn-primary" ng-model="state.filters.Platform" uib-btn-radio="'linux'">
               <i class="fab fa-linux" aria-hidden="true"></i>
-              Linux
+              Linux平台
             </label>
           </span>
         </div>
@@ -381,7 +381,7 @@
         <form class="form-horizontal">
           <div ng-if="templatesKey !== 'linuxserver.io' && state.showDeploymentSelector">
             <div class="col-sm-12 form-section-title">
-              Deployment method
+              部署方式
             </div>
             <div class="form-group"></div>
             <div class="form-group" style="margin-bottom: 0">
@@ -412,7 +412,7 @@
 
           <div ng-if="templatesKey !== 'linuxserver.io' && state.showDeploymentSelector">
             <div class="col-sm-12 form-section-title">
-              Templates
+              模板
             </div>
             <div class="form-group"></div>
           </div>
@@ -456,10 +456,10 @@
               <!-- !template -->
             </div>
             <div ng-if="!templates" class="text-center text-muted">
-              Loading...
+              加载中...
             </div>
             <div ng-if="(templates | filter:state.filters:true).length == 0" class="text-center text-muted">
-              No templates available.
+              没有可用模板。
             </div>
           </div>
         </form>

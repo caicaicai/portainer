@@ -1,7 +1,7 @@
 <rd-header>
   <rd-header-title title="Create volume"></rd-header-title>
   <rd-header-content>
-    <a ui-sref="docker.volumes">Volumes</a> &gt; Add volume
+    <a ui-sref="docker.volumes">存储卷</a> &gt; 增加存储卷
   </rd-header-content>
 </rd-header>
 
@@ -12,21 +12,21 @@
         <form class="form-horizontal">
           <!-- name-input -->
           <div class="form-group">
-            <label for="volume_name" class="col-sm-1 control-label text-left">Name</label>
+            <label for="volume_name" class="col-sm-1 control-label text-left">名称</label>
             <div class="col-sm-11">
               <input type="text" class="form-control" ng-model="formValues.Name" id="volume_name" placeholder="e.g. myVolume">
             </div>
           </div>
           <!-- !name-input -->
           <div class="col-sm-12 form-section-title">
-            Driver configuration
+            驱动配置
           </div>
           <!-- driver-input -->
           <div class="form-group">
-            <label for="volume_driver" class="col-sm-1 control-label text-left">Driver</label>
+            <label for="volume_driver" class="col-sm-1 control-label text-left">驱动</label>
             <div class="col-sm-11">
               <select class="form-control" ng-options="driver for driver in availableVolumeDrivers" ng-model="formValues.Driver" ng-if="availableVolumeDrivers.length > 0">
-                <option disabled hidden value="">Select a driver</option>
+                <option disabled hidden value="">选择一个驱动</option>
               </select>
               <input type="text" class="form-control" ng-model="formValues.Driver" id="volume_driver" placeholder="e.g. driverName" ng-if="availableVolumeDrivers.length === 0">
             </div>
@@ -36,22 +36,22 @@
           <div class="form-group">
             <div class="col-sm-12" style="margin-top: 5px;">
               <label class="control-label text-left">
-                Driver options
+                驱动选项
                 <portainer-tooltip position="bottom" message="Driver options are specific to the selected driver. Please refer to the selected driver documentation."></portainer-tooltip>
               </label>
               <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addDriverOption()">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> add driver option
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> 增加额外的驱动选项
               </span>
             </div>
             <!-- driver-options-input-list -->
             <div class="col-sm-12 form-inline" style="margin-top: 10px;">
               <div ng-repeat="option in formValues.DriverOptions" style="margin-top: 2px;">
                 <div class="input-group col-sm-5 input-group-sm">
-                  <span class="input-group-addon">name</span>
+                  <span class="input-group-addon">名称</span>
                   <input type="text" class="form-control" ng-model="option.name" placeholder="e.g. mountpoint">
                 </div>
                 <div class="input-group col-sm-5 input-group-sm">
-                  <span class="input-group-addon">value</span>
+                  <span class="input-group-addon">值</span>
                   <input type="text" class="form-control" ng-model="option.value" placeholder="e.g. /path/on/host">
                 </div>
                 <button class="btn btn-sm btn-danger" type="button" ng-click="removeDriverOption($index)">
@@ -72,7 +72,7 @@
           <!-- storidge -->
           <div ng-if="applicationState.endpoint.mode.agentProxy && formValues.Driver === 'local'">
             <div class="col-sm-12 form-section-title">
-              Deployment
+              部署
             </div>
             <!-- node-selection -->
             <node-selector
@@ -85,13 +85,13 @@
           <!-- !access-control -->
           <!-- actions -->
           <div class="col-sm-12 form-section-title">
-            Actions
+            操作
           </div>
           <div class="form-group">
             <div class="col-sm-12">
               <button type="button" class="btn btn-primary btn-sm" ng-click="create()" ng-disabled="state.actionInProgress" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">Create the volume</span>
-                <span ng-show="state.actionInProgress">Creating volume...</span>
+                <span ng-hide="state.actionInProgress">创建存储卷</span>
+                <span ng-show="state.actionInProgress">正在创建中...</span>
               </button>
               <span class="text-danger" ng-if="state.formValidationError" style="margin-left: 5px;">{{ state.formValidationError }}</span>
             </div>

@@ -7,7 +7,7 @@
         </div>
         <div class="settings">
           <span class="setting" ng-class="{ 'setting-active': $ctrl.state.displayTextFilter }" ng-click="$ctrl.updateDisplayTextFilter()" ng-if="$ctrl.showTextFilter">
-            <i class="fa fa-search" aria-hidden="true"></i> Search
+            <i class="fa fa-search" aria-hidden="true"></i> 搜索
           </span>
         </div>
       </div>
@@ -28,7 +28,7 @@
               </th>
               <th>
                 <a ng-click="$ctrl.changeOrderBy('Status')">
-                  Status
+                  状态
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Status' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Status' && $ctrl.state.reverseOrder"></i>
                 </a>
@@ -42,19 +42,19 @@
               </th>
               <th>
                 <a ng-click="$ctrl.changeOrderBy('NodeId')">
-                  Node
+                  节点
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'NodeId' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'NodeId' && $ctrl.state.reverseOrder"></i>
                 </a>
               </th>
               <th>
                 <a ng-click="$ctrl.changeOrderBy('Updated')">
-                  Last Update
+                  最后更新
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Updated' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Updated' && $ctrl.state.reverseOrder"></i>
                 </a>
               </th>
-              <th>Actions</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody>
@@ -69,18 +69,18 @@
               <td>{{ item.Updated | getisodate }}</td>
               <td>
                 <a ui-sref="docker.tasks.task.logs({id: item.Id})" ng-if="$ctrl.showLogsButton" class="space-right">
-                  <i class="fa fa-file-alt" aria-hidden="true"></i> View logs
+                  <i class="fa fa-file-alt" aria-hidden="true"></i> 查看日志
                 </a>
                 <a ui-sref="docker.containers.container.console({ id: item.Container.Id, nodeName: item.Container.NodeName })" ng-if="$ctrl.agentProxy">
-                  <i class="fa fa-terminal" aria-hidden="true"></i> Console
+                  <i class="fa fa-terminal" aria-hidden="true"></i> 控制台
                 </a>
               </td>
             </tr>
             <tr ng-if="!$ctrl.dataset">
-              <td colspan="6" class="text-center text-muted">Loading...</td>
+              <td colspan="6" class="text-center text-muted">加载中...</td>
             </tr>
             <tr ng-if="$ctrl.state.filteredDataSet.length === 0">
-              <td colspan="6" class="text-center text-muted">No task available.</td>
+              <td colspan="6" class="text-center text-muted">没有可用任务.</td>
             </tr>
           </tbody>
         </table>
@@ -90,7 +90,7 @@
           <form class="form-inline">
             <span class="limitSelector">
               <span style="margin-right: 5px;">
-                Items per page
+                每页数量
               </span>
               <select class="form-control" ng-model="$ctrl.state.paginatedItemLimit" ng-change="$ctrl.changePaginationLimit()">
                 <option value="0">All</option>

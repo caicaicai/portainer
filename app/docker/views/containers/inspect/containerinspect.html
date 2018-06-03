@@ -2,7 +2,7 @@
   <rd-header-title title="Container inspect">
   </rd-header-title>
   <rd-header-content>
-    <a ui-sref="docker.containers">Containers</a> &gt; <a ui-sref="docker.containers.container({id: containerInfo.Id})">{{ containerInfo.Name|trimcontainername }}</a> &gt; Inspect
+    <a ui-sref="docker.containers">容器</a> &gt; <a ui-sref="docker.containers.container({id: containerInfo.Id})">{{ containerInfo.Name|trimcontainername }}</a> &gt; Inspect
   </rd-header-content>
 </rd-header>
 
@@ -11,8 +11,8 @@
     <rd-widget>
       <rd-widget-header icon="fa-icon-circle" title="Inspect">
         <span class="btn-group btn-group-sm">
-          <label class="btn btn-primary" ng-model="state.DisplayTextView" uib-btn-radio="false"><i class="fa fa-code space-right" aria-hidden="true"></i>Tree</label>
-          <label class="btn btn-primary" ng-model="state.DisplayTextView" uib-btn-radio="true"><i class="fa fa-file-alt space-right" aria-hidden="true"></i>Text</label>
+          <label class="btn btn-primary" ng-model="state.DisplayTextView" uib-btn-radio="false"><i class="fa fa-code space-right" aria-hidden="true"></i>树状</label>
+          <label class="btn btn-primary" ng-model="state.DisplayTextView" uib-btn-radio="true"><i class="fa fa-file-alt space-right" aria-hidden="true"></i>文本</label>
         </span>
       </rd-widget-header>
       <rd-widget-body>

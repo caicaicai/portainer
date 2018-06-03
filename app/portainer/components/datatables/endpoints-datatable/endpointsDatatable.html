@@ -7,17 +7,17 @@
         </div>
         <div class="settings">
           <span class="setting" ng-class="{ 'setting-active': $ctrl.state.displayTextFilter }" ng-click="$ctrl.updateDisplayTextFilter()" ng-if="$ctrl.showTextFilter">
-            <i class="fa fa-search" aria-hidden="true"></i> Search
+            <i class="fa fa-search" aria-hidden="true"></i> 搜索
           </span>
         </div>
       </div>
       <div class="actionBar" ng-if="$ctrl.endpointManagement">
         <button type="button" class="btn btn-sm btn-danger"
           ng-disabled="$ctrl.state.selectedItemCount === 0" ng-click="$ctrl.removeAction($ctrl.state.selectedItems)">
-          <i class="fa fa-trash-alt space-right" aria-hidden="true"></i>Remove
+          <i class="fa fa-trash-alt space-right" aria-hidden="true"></i>移除
         </button>
         <button type="button" class="btn btn-sm btn-primary" ui-sref="portainer.endpoints.new">
-          <i class="fa fa-plus space-right" aria-hidden="true"></i>Add endpoint
+          <i class="fa fa-plus space-right" aria-hidden="true"></i>增加 endpoint
         </button>
       </div>
       <div class="searchBar" ng-if="$ctrl.state.displayTextFilter">
@@ -34,14 +34,14 @@
                   <label for="select_all"></label>
                 </span>
                 <a ng-click="$ctrl.changeOrderBy('Name')">
-                  Name
+                  名称
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Name' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Name' && $ctrl.state.reverseOrder"></i>
                 </a>
               </th>
               <th>
                 <a ng-click="$ctrl.changeOrderBy('Type')">
-                  Type
+                  类型
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Type' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Type' && $ctrl.state.reverseOrder"></i>
                 </a>
@@ -55,12 +55,12 @@
               </th>
               <th>
                 <a ng-click="$ctrl.changeOrderBy('GroupName')">
-                  Group
+                  组
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'GroupName' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'GroupName' && $ctrl.state.reverseOrder"></i>
                 </a>
               </th>
-              <th>Actions</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody>
@@ -83,15 +83,15 @@
               <td>{{ item.GroupName }}</td>
               <td>
                 <a ui-sref="portainer.endpoints.endpoint.access({id: item.Id})" ng-if="$ctrl.accessManagement">
-                  <i class="fa fa-users" aria-hidden="true"></i> Manage access
+                  <i class="fa fa-users" aria-hidden="true"></i> 管理访问
                 </a>
               </td>
             </tr>
             <tr ng-if="!$ctrl.dataset">
-              <td colspan="3" class="text-center text-muted">Loading...</td>
+              <td colspan="3" class="text-center text-muted">加载中...</td>
             </tr>
             <tr ng-if="$ctrl.state.filteredDataSet.length === 0">
-              <td colspan="3" class="text-center text-muted">No endpoint available.</td>
+              <td colspan="3" class="text-center text-muted">没有可用的访问端点</td>
             </tr>
           </tbody>
         </table>
@@ -104,7 +104,7 @@
           <form class="form-inline">
             <span class="limitSelector">
               <span style="margin-right: 5px;">
-                Items per page
+                每页显示数量
               </span>
               <select class="form-control" ng-model="$ctrl.state.paginatedItemLimit" ng-change="$ctrl.changePaginationLimit()">
                 <option value="0">All</option>

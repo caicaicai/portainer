@@ -1,16 +1,16 @@
 <form class="form-horizontal" style="margin-top: 15px;">
   <div class="col-sm-12 form-section-title">
-      Update config
+      更新配置
   </div>
   <!-- parallelism-input -->
   <div class="form-group">
-    <label for="parallelism" class="col-sm-3 col-lg-2 control-label text-left">Update parallelism</label>
+    <label for="parallelism" class="col-sm-3 col-lg-2 control-label text-left">更新并行量</label>
     <div class="col-sm-4 col-lg-3">
       <input type="number" class="form-control" ng-model="formValues.Parallelism" id="parallelism" placeholder="e.g. 1">
     </div>
     <div class="col-sm-5">
       <p class="small text-muted">
-        Maximum number of tasks to be updated simultaneously (0 to update all at once).
+        要同时更新的最大任务数（一次全部更新设置为0）。
       </p>
     </div>
   </div>
@@ -18,7 +18,7 @@
   <!-- delay-input -->
   <div class="form-group">
     <label for="update-delay" class="col-sm-3 col-lg-2 control-label text-left">
-      Update delay
+      更新延迟
       <portainer-tooltip position="bottom" message="Supported format examples: 1h, 5m, 10s, 1000ms, 15us, 60ns."></portainer-tooltip>
     </label>                
     <div class="col-sm-4 col-lg-3">
@@ -26,50 +26,50 @@
     </div>
     <div class="col-sm-5">
       <p class="small text-muted">
-        Amount of time between updates expressed by a number followed by unit (ns|us|ms|s|m|h). Default value is 0s, 0 seconds.
+        用数字表示的更新之间的时间间隔（单位：ns | us | ms | s | m | h）。 默认值为0秒，0秒。
       </p>
     </div>
   </div>
   <!-- !delay-input -->
   <!-- failureAction-input -->
   <div class="form-group">
-    <label for="failure-action" class="col-sm-3 col-lg-2 control-label text-left">Update failure action</label>
+    <label for="failure-action" class="col-sm-3 col-lg-2 control-label text-left">更新失败动作</label>
     <div class="col-sm-4 col-lg-3">
       <div class="btn-group btn-group-sm">
-        <label class="btn btn-primary" ng-model="formValues.FailureAction" uib-btn-radio="'continue'">Continue</label>
-        <label class="btn btn-primary" ng-model="formValues.FailureAction" uib-btn-radio="'pause'">Pause</label>
+        <label class="btn btn-primary" ng-model="formValues.FailureAction" uib-btn-radio="'continue'">继续</label>
+        <label class="btn btn-primary" ng-model="formValues.FailureAction" uib-btn-radio="'pause'">暂停</label>
       </div>
     </div>
     <div class="col-sm-5">
       <p class="small text-muted">
-        Action taken on failure to start after update.
+        更新后无法启动的操作。
       </p>
     </div>
   </div>
   <!-- !failureAction-input -->
   <!-- order-input -->
   <div class="form-group" ng-if="applicationState.endpoint.apiVersion >= 1.29">
-    <label for="update-order" class="col-sm-3 col-lg-2 control-label text-left">Update order</label>
+    <label for="update-order" class="col-sm-3 col-lg-2 control-label text-left">更新顺序</label>
     <div class="col-sm-4 col-lg-3">
       <div class="btn-group btn-group-sm">
-        <label class="btn btn-primary" ng-model="formValues.UpdateOrder" uib-btn-radio="'start-first'">start-first</label>
-        <label class="btn btn-primary" ng-model="formValues.UpdateOrder" uib-btn-radio="'stop-first'">stop-first</label>
+        <label class="btn btn-primary" ng-model="formValues.UpdateOrder" uib-btn-radio="'start-first'">先启动(start-first)</label>
+        <label class="btn btn-primary" ng-model="formValues.UpdateOrder" uib-btn-radio="'stop-first'">先终止(stop-first)</label>
       </div>
     </div>
     <div class="col-sm-5">
       <p class="small text-muted">
-        Operation order on failure.
+        失败时的操作顺序
       </p>
     </div>
   </div>
   <!-- !order-input -->
   
   <div class="col-sm-12 form-section-title">
-      Restart policy
+    重新启动策略
   </div>
   <!-- restartCondition-input -->
   <div class="form-group">
-    <label for="restart-condition" class="col-sm-3 col-lg-2 control-label text-left">Restart condition</label>
+    <label for="restart-condition" class="col-sm-3 col-lg-2 control-label text-left">重新启动条件</label>
     <div class="col-sm-4 col-lg-3">
       <div class="btn-group btn-group-sm">
         <label class="btn btn-primary" ng-model="formValues.RestartCondition" uib-btn-radio="'none'">None</label>
@@ -79,7 +79,7 @@
     </div>
     <div class="col-sm-5">
       <p class="small text-muted">
-        Restart when condition is met (default condition "any"). 
+        条件满足时重新启动（默认条件“Any”）。
       </p>
     </div>
   </div>
@@ -87,7 +87,7 @@
   <!-- restartDelay-input -->
   <div class="form-group">
     <label for="restart-delay" class="col-sm-3 col-lg-2 control-label text-left">
-      Restart delay
+        重新启动延迟
       <portainer-tooltip position="bottom" message="Supported format examples: 1h, 5m, 10s, 1000ms, 15us, 60ns."></portainer-tooltip>
     </label>                
     <div class="col-sm-4 col-lg-3">
@@ -95,20 +95,20 @@
     </div>
     <div class="col-sm-5">
       <p class="small text-muted">
-        Delay between restart attempts expressed by a number followed by unit (ns|us|ms|s|m|h). Default value is 5s, 5 seconds.
+        以数字表示的重新启动尝试之间的延迟，后跟单位（ns | us | ms | s | m | h）。 默认值是5秒，5秒。
       </p>
     </div>
   </div>
   <!-- !restartDelay-input -->
   <!-- restartMaxAttempts-input -->
    <div class="form-group">
-    <label for="restart-max-attempts" class="col-sm-3 col-lg-2 control-label text-left">Restart max attempts</label>
+    <label for="restart-max-attempts" class="col-sm-3 col-lg-2 control-label text-left">重新启动最大尝试次数</label>
     <div class="col-sm-4 col-lg-3">
       <input type="number" class="form-control" ng-model="formValues.RestartMaxAttempts" id="restart-max-attempts" placeholder="e.g. 0">
     </div>
     <div class="col-sm-5">
       <p class="small text-muted">
-        Maximum attempts to restart a given task before giving up (default value is 0, which means unlimited).
+        放弃尝试重新启动任务的最大次数（默认值为0，表示无限制）。
       </p>
     </div>
   </div>
@@ -116,7 +116,7 @@
   <!-- restartWindow-input -->
   <div class="form-group">
     <label for="restart-window" class="col-sm-3 col-lg-2 control-label text-left">
-      Restart window
+      重启窗口
       <portainer-tooltip position="bottom" message="Supported format examples: 1h, 5m, 10s, 1000ms, 15us, 60ns."></portainer-tooltip>
     </label>                
     <div class="col-sm-4 col-lg-3">
@@ -124,7 +124,7 @@
     </div>
     <div class="col-sm-5">
       <p class="small text-muted">
-        Time window to evaluate restart attempts expressed by a number followed by unit (ns|us|ms|s|m|h). Default value is 0 seconds, which is unbounded.
+        时间窗口评估重新启动尝试的次数，后面跟着单位（ns | us | ms | s | m | h）。 默认值是0秒，这是无限制的。Time window to evaluate restart attempts expressed by a number followed by unit (ns|us|ms|s|m|h). Default value is 0 seconds, which is unbounded.
       </p>
     </div>
   </div>

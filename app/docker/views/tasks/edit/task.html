@@ -1,7 +1,7 @@
 <rd-header>
   <rd-header-title title="Task details"></rd-header-title>
   <rd-header-content ng-if="task && service">
-    <a ui-sref="docker.services">Services</a> &gt; <a ui-sref="docker.services.service({id: service.Id })">{{ service.Name }}</a> &gt; {{ task.Id }}
+    <a ui-sref="docker.services">服务</a> &gt; <a ui-sref="docker.services.service({id: service.Id })">{{ service.Name }}</a> &gt; {{ task.Id }}
   </rd-header-content>
 </rd-header>
 
@@ -17,19 +17,19 @@
               <td>{{ task.Id }}</td>
             </tr>
             <tr>
-              <td>State</td>
+              <td>状态</td>
               <td><span class="label label-{{ task.Status.State|taskstatusbadge }}">{{ task.Status.State }}</span></td>
             </tr>
             <tr>
-              <td>State Message</td>
+              <td>状态消息</td>
               <td>{{ task.Status.Message }}</td>
             </tr>
             <tr ng-if="task.Status.Err">
-              <td>Error message</td>
+              <td>错误消息</td>
               <td><code>{{ task.Status.Err }}</code></td>
             </tr>
             <tr>
-              <td>Image</td>
+              <td>镜像</td>
               <td>{{ task.Spec.ContainerSpec.Image | hideshasum }}</td>
             </tr>
             <tr ng-if="service.Mode !== 'global'">
@@ -37,11 +37,11 @@
               <td>{{ task.Slot }}</td>
             </tr>
             <tr>
-              <td>Created</td>
+              <td>创建时间</td>
               <td>{{ task.Created|getisodate }}</td>
             </tr>
             <tr ng-if="task.Status.ContainerStatus.ContainerID">
-              <td>Container ID</td>
+              <td>容器 ID</td>
               <td>{{ task.Status.ContainerStatus.ContainerID }}</td>
             </tr>
             <tr ng-if="applicationState.endpoint.apiVersion >= 1.30" >

@@ -55,7 +55,7 @@
         <form class="form-horizontal">
           <div class="form-group">
             <span class="col-sm-12 text-muted small">
-              You can get more information about Compose file format in the <a href="https://docs.docker.com/compose/compose-file/" target="_blank">official documentation</a>.
+              你可以通过官方文档来了解Compose文件该如何编写 <a href="https://docs.docker.com/compose/compose-file/" target="_blank">official documentation</a>.
             </span>
           </div>
           <div class="form-group">
@@ -70,25 +70,25 @@
             </div>
           </div>
           <div class="col-sm-12 form-section-title">
-            Environment
+            环境
           </div>
           <!-- environment-variables -->
           <div class="form-group">
             <div class="col-sm-12" style="margin-top: 5px;">
-              <label class="control-label text-left">Environment variables</label>
+              <label class="control-label text-left">环境变量</label>
               <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addEnvironmentVariable()">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> add environment variable
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> 增加环境变量
               </span>
             </div>
             <!-- environment-variable-input-list -->
             <div class="col-sm-12 form-inline" style="margin-top: 10px;">
               <div ng-repeat="variable in stack.Env" style="margin-top: 2px;">
                 <div class="input-group col-sm-5 input-group-sm">
-                  <span class="input-group-addon">name</span>
+                  <span class="input-group-addon">名称</span>
                   <input type="text" class="form-control" ng-model="variable.name" placeholder="e.g. FOO">
                 </div>
                 <div class="input-group col-sm-5 input-group-sm">
-                  <span class="input-group-addon">value</span>
+                  <span class="input-group-addon">值</span>
                   <input type="text" class="form-control" ng-model="variable.value" placeholder="e.g. bar">
                 </div>
                 <button class="btn btn-sm btn-danger" type="button" ng-click="removeEnvironmentVariable($index)">
@@ -101,13 +101,13 @@
           <!-- !environment-variables -->
           <!-- options -->
           <div class="col-sm-12 form-section-title" ng-if="applicationState.endpoint.apiVersion >= 1.27">
-          Options
+          选项
           </div>
           <div class="form-group" ng-if="applicationState.endpoint.apiVersion >= 1.27">
             <div class="col-sm-12">
               <label for="prune" class="control-label text-left">
-                Prune services
-                <portainer-tooltip position="bottom" message="Prune services that are no longer referenced."></portainer-tooltip>
+                精简的服务
+                <portainer-tooltip position="bottom" message="没有被其他服务引用的服务称为精简的服务。（Prune services that are no longer referenced.）"></portainer-tooltip>
               </label>
               <label class="switch" style="margin-left: 20px;">
                 <input name="prune" type="checkbox" ng-model="formValues.Prune"><i></i>
@@ -116,13 +116,13 @@
           </div>
           <!-- !options -->
           <div class="col-sm-12 form-section-title">
-            Actions
+            操作
           </div>
           <div class="form-group">
             <div class="col-sm-12">
               <button type="button" class="btn btn-sm btn-primary" ng-disabled="state.actionInProgress" ng-click="deployStack()" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">Update the stack</span>
-                <span ng-show="state.actionInProgress">Deployment in progress...</span>
+                <span ng-hide="state.actionInProgress">更新stack</span>
+                <span ng-show="state.actionInProgress">正在部署中...</span>
               </button>
             </div>
           </div>

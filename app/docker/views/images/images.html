@@ -4,7 +4,7 @@
       <i class="fa fa-sync" aria-hidden="true"></i>
     </a>
   </rd-header-title>
-  <rd-header-content>Images</rd-header-content>
+  <rd-header-content>镜像</rd-header-content>
 </rd-header>
 
 <div class="row">
@@ -22,13 +22,13 @@
           <!-- tag-note -->
           <div class="form-group">
             <div class="col-sm-12">
-              <span class="small text-muted">Note: if you don't specify the tag in the image name, <span class="label label-default">latest</span> will be used.</span>
+              <span class="small text-muted">注意：如果您没有在镜像名称中指定标签， <span class="label label-default">latest</span> 将会被使用.</span>
             </div>
           </div>
           <!-- !tag-note -->
           <div ng-if="applicationState.endpoint.mode.agentProxy">
             <div class="col-sm-12 form-section-title">
-              Deployment
+              部署
             </div>
             <!-- node-selection -->
             <node-selector
@@ -39,8 +39,8 @@
           <div class="form-group">
             <div class="col-sm-12">
               <button type="button" class="btn btn-primary btn-sm" ng-disabled="state.actionInProgress || !formValues.Image" ng-click="pullImage()" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">Pull the image</span>
-                <span ng-show="state.actionInProgress">Download in progress...</span>
+                <span ng-hide="state.actionInProgress">拉取镜像</span>
+                <span ng-show="state.actionInProgress">正在下载中...</span>
               </button>
             </div>
           </div>
