@@ -1,5 +1,5 @@
 <rd-header>
-  <rd-header-title title="Create container"></rd-header-title>
+  <rd-header-title title-text="Create container"></rd-header-title>
   <rd-header-content>
     <a ui-sref="docker.containers">容器</a> &gt; 创建容器
   </rd-header-content>
@@ -27,9 +27,13 @@
           </div>
           <div ng-if="formValues.Registry || !fromContainer">
             <!-- image-and-registry -->
-            <div class="form-group">
-              <por-image-registry image="config.Image" registry="formValues.Registry" ng-if="formValues.Registry" auto-complete="true"></por-image-registry>
-            </div>
+            <por-image-registry
+              image="config.Image"
+              registry="formValues.Registry"
+              ng-if="formValues.Registry"
+              auto-complete="true"
+              label-class="col-sm-1" input-class="col-sm-11 col-md-5"
+            ></por-image-registry>
             <!-- !image-and-registry -->
             <!-- always-pull -->
             <div class="form-group">
@@ -138,7 +142,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-xs-12">
     <rd-widget>
-      <rd-widget-header icon="fa-cog" title="Advanced container settings"></rd-widget-header>
+      <rd-widget-header icon="fa-cog" title-text="Advanced container settings"></rd-widget-header>
       <rd-widget-body>
         <ul class="nav nav-pills nav-justified">
           <li class="active interactive"><a data-target="#command" data-toggle="tab">指令</a></li>

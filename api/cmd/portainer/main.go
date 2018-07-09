@@ -1,6 +1,7 @@
 package main // import "github.com/portainer/portainer"
 
 import (
+	"encoding/json"
 	"strings"
 
 	"github.com/portainer/portainer"
@@ -15,6 +16,7 @@ import (
 	"github.com/portainer/portainer/http/client"
 	"github.com/portainer/portainer/jwt"
 	"github.com/portainer/portainer/ldap"
+	"github.com/portainer/portainer/libcompose"
 
 	"log"
 )
@@ -41,8 +43,8 @@ func initFileService(dataStorePath string) portainer.FileService {
 	return fileService
 }
 
-func initStore(dataStorePath string) *bolt.Store {
-	store, err := bolt.NewStore(dataStorePath)
+func initStore(dataStorePath string, fileService portainer.FileService) *bolt.Store {
+	store, err := bolt.NewStore(dataStorePath, fileService)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -64,8 +66,12 @@ func initStore(dataStorePath string) *bolt.Store {
 	return store
 }
 
-func initStackManager(assetsPath string, dataStorePath string, signatureService portainer.DigitalSignatureService, fileService portainer.FileService) (portainer.StackManager, error) {
-	return exec.NewStackManager(assetsPath, dataStorePath, signatureService, fileService)
+func initComposeStackManager(dataStorePath string) portainer.ComposeStackManager {
+	return libcompose.NewComposeStackManager(dataStorePath)
+}
+
+func initSwarmStackManager(assetsPath string, dataStorePath string, signatureService portainer.DigitalSignatureService, fileService portainer.FileService) (portainer.SwarmStackManager, error) {
+	return exec.NewSwarmStackManager(assetsPath, dataStorePath, signatureService, fileService)
 }
 
 func initJWTService(authenticationEnabled bool) portainer.JWTService {
@@ -120,13 +126,13 @@ func initStatus(authorizeEndpointMgmt bool, flags *portainer.CLIFlags) *portaine
 
 func initDockerHub(dockerHubService portainer.DockerHubService) error {
 	_, err := dockerHubService.DockerHub()
-	if err == portainer.ErrDockerHubNotFound {
+	if err == portainer.ErrObjectNotFound {
 		dockerhub := &portainer.DockerHub{
 			Authentication: false,
 			Username:       "",
 			Password:       "",
 		}
-		return dockerHubService.StoreDockerHub(dockerhub)
+		return dockerHubService.UpdateDockerHub(dockerhub)
 	} else if err != nil {
 		return err
 	}
@@ -136,11 +142,10 @@ func initDockerHub(dockerHubService portainer.DockerHubService) error {
 
 func initSettings(settingsService portainer.SettingsService, flags *portainer.CLIFlags) error {
 	_, err := settingsService.Settings()
-	if err == portainer.ErrSettingsNotFound {
+	if err == portainer.ErrObjectNotFound {
 		settings := &portainer.Settings{
-			LogoURL:                     *flags.Logo,
-			DisplayExternalContributors: false,
-			AuthenticationMethod:        portainer.AuthenticationInternal,
+			LogoURL:              *flags.Logo,
+			AuthenticationMethod: portainer.AuthenticationInternal,
 			LDAPSettings: portainer.LDAPSettings{
 				TLSConfig: portainer.TLSConfiguration{},
 				SearchSettings: []portainer.LDAPSearchSettings{
@@ -151,23 +156,69 @@ func initSettings(settingsService portainer.SettingsService, flags *portainer.CL
 			AllowPrivilegedModeForRegularUsers: true,
 		}
 
-		if *flags.Templates != "" {
-			settings.TemplatesURL = *flags.Templates
-		} else {
-			settings.TemplatesURL = portainer.DefaultTemplatesURL
-		}
-
 		if *flags.Labels != nil {
 			settings.BlackListedLabels = *flags.Labels
 		} else {
 			settings.BlackListedLabels = make([]portainer.Pair, 0)
 		}
 
-		return settingsService.StoreSettings(settings)
+		return settingsService.UpdateSettings(settings)
 	} else if err != nil {
 		return err
 	}
 
+	return nil
+}
+
+func initTemplates(templateService portainer.TemplateService, fileService portainer.FileService, templateURL, templateFile string) error {
+
+	existingTemplates, err := templateService.Templates()
+	if err != nil {
+		return err
+	}
+
+	if len(existingTemplates) != 0 {
+		log.Printf("Templates already registered inside the database. Skipping template import.")
+		return nil
+	}
+
+	var templatesJSON []byte
+	if templateURL == "" {
+		return loadTemplatesFromFile(fileService, templateService, templateFile)
+	}
+
+	templatesJSON, err = client.Get(templateURL)
+	if err != nil {
+		log.Println("Unable to retrieve templates via HTTP")
+		return err
+	}
+
+	return unmarshalAndPersistTemplates(templateService, templatesJSON)
+}
+
+func loadTemplatesFromFile(fileService portainer.FileService, templateService portainer.TemplateService, templateFile string) error {
+	templatesJSON, err := fileService.GetFileContent(templateFile)
+	if err != nil {
+		log.Println("Unable to retrieve template via filesystem")
+		return err
+	}
+	return unmarshalAndPersistTemplates(templateService, templatesJSON)
+}
+
+func unmarshalAndPersistTemplates(templateService portainer.TemplateService, templateData []byte) error {
+	var templates []portainer.Template
+	err := json.Unmarshal(templateData, &templates)
+	if err != nil {
+		log.Println("Unable to parse templates file. Please review your template definition file.")
+		return err
+	}
+
+	for _, template := range templates {
+		err := templateService.CreateTemplate(&template)
+		if err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -231,6 +282,7 @@ func createTLSSecuredEndpoint(flags *portainer.CLIFlags, endpointService portain
 		AuthorizedUsers: []portainer.UserID{},
 		AuthorizedTeams: []portainer.TeamID{},
 		Extensions:      []portainer.EndpointExtension{},
+		Tags:            []string{},
 	}
 
 	if strings.HasPrefix(endpoint.URL, "tcp://") {
@@ -269,6 +321,7 @@ func createUnsecuredEndpoint(endpointURL string, endpointService portainer.Endpo
 		AuthorizedUsers: []portainer.UserID{},
 		AuthorizedTeams: []portainer.TeamID{},
 		Extensions:      []portainer.EndpointExtension{},
+		Tags:            []string{},
 	}
 
 	return endpointService.CreateEndpoint(endpoint)
@@ -300,7 +353,7 @@ func main() {
 
 	fileService := initFileService(*flags.Data)
 
-	store := initStore(*flags.Data)
+	store := initStore(*flags.Data, fileService)
 	defer store.Close()
 
 	jwtService := initJWTService(!*flags.NoAuth)
@@ -320,7 +373,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	stackManager, err := initStackManager(*flags.Assets, *flags.Data, digitalSignatureService, fileService)
+	swarmStackManager, err := initSwarmStackManager(*flags.Assets, *flags.Data, digitalSignatureService, fileService)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	composeStackManager := initComposeStackManager(*flags.Data)
+
+	err = initTemplates(store.TemplateService, fileService, *flags.Templates, *flags.TemplateFile)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -348,7 +408,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		adminPasswordHash, err = cryptoService.Hash(content)
+		adminPasswordHash, err = cryptoService.Hash(string(content))
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -394,7 +454,10 @@ func main() {
 		RegistryService:        store.RegistryService,
 		DockerHubService:       store.DockerHubService,
 		StackService:           store.StackService,
-		StackManager:           stackManager,
+		TagService:             store.TagService,
+		TemplateService:        store.TemplateService,
+		SwarmStackManager:      swarmStackManager,
+		ComposeStackManager:    composeStackManager,
 		CryptoService:          cryptoService,
 		JWTService:             jwtService,
 		FileService:            fileService,
