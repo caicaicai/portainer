@@ -32,7 +32,7 @@ angular.module('portainer.docker', ['portainer.app'])
 
   var configCreation = {
     name: 'docker.configs.new',
-    url: '/new',
+    url: '/new?id',
     views: {
       'content@': {
         templateUrl: 'app/docker/views/configs/create/createconfig.html',
@@ -180,6 +180,17 @@ angular.module('portainer.docker', ['portainer.app'])
       'content@': {
         templateUrl: 'app/docker/views/images/build/buildimage.html',
         controller: 'BuildImageController'
+      }
+    }
+  };
+
+  var imageImport = {
+    name: 'docker.images.import',
+    url: '/import',
+    views: {
+      'content@': {
+        templateUrl: 'app/docker/views/images/import/importimage.html',
+        controller: 'ImportImageController'
       }
     }
   };
@@ -383,6 +394,17 @@ angular.module('portainer.docker', ['portainer.app'])
     }
   };
 
+  var volumeBrowse = {
+    name: 'docker.volumes.volume.browse',
+    url: '/browse',
+    views: {
+      'content@': {
+        templateUrl: 'app/docker/views/volumes/browse/browsevolume.html',
+        controller: 'BrowseVolumeController'
+      }
+    }
+  };
+
   var volumeCreation = {
     name: 'docker.volumes.new',
     url: '/new',
@@ -411,6 +433,7 @@ angular.module('portainer.docker', ['portainer.app'])
   $stateRegistryProvider.register(images);
   $stateRegistryProvider.register(image);
   $stateRegistryProvider.register(imageBuild);
+  $stateRegistryProvider.register(imageImport);
   $stateRegistryProvider.register(networks);
   $stateRegistryProvider.register(network);
   $stateRegistryProvider.register(networkCreation);
@@ -430,5 +453,6 @@ angular.module('portainer.docker', ['portainer.app'])
   $stateRegistryProvider.register(taskLogs);
   $stateRegistryProvider.register(volumes);
   $stateRegistryProvider.register(volume);
+  $stateRegistryProvider.register(volumeBrowse);
   $stateRegistryProvider.register(volumeCreation);
 }]);

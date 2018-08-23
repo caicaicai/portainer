@@ -1,12 +1,12 @@
 angular.module('portainer.docker')
 .controller('LogViewerController', ['clipboard',
 function (clipboard) {
-  var ctrl = this;
 
   this.state = {
     copySupported: clipboard.supported,
     logCollection: true,
     autoScroll: true,
+    wrapLines: true,
     search: '',
     filteredLogs: [],
     selectedLines: []

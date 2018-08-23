@@ -16,11 +16,12 @@ import (
 type Service struct{}
 
 const (
-	errInvalidEndpointProtocol       = portainer.Error("Invalid endpoint protocol: Portainer only supports unix:// or tcp://")
-	errSocketNotFound                = portainer.Error("Unable to locate Unix socket")
+	errInvalidEndpointProtocol       = portainer.Error("Invalid endpoint protocol: Portainer only supports unix://, npipe:// or tcp://")
+	errSocketOrNamedPipeNotFound     = portainer.Error("Unable to locate Unix socket or named pipe")
 	errEndpointsFileNotFound         = portainer.Error("Unable to locate external endpoints file")
 	errTemplateFileNotFound          = portainer.Error("Unable to locate template file on disk")
 	errInvalidSyncInterval           = portainer.Error("Invalid synchronization interval")
+	errInvalidSnapshotInterval       = portainer.Error("Invalid snapshot interval")
 	errEndpointExcludeExternal       = portainer.Error("Cannot use the -H flag mutually with --external-endpoints")
 	errNoAuthExcludeAdminPassword    = portainer.Error("Cannot use --no-auth with --admin-password or --admin-password-file")
 	errAdminPassExcludeAdminPassFile = portainer.Error("Cannot use --admin-password with --admin-password-file")
@@ -47,6 +48,8 @@ func (*Service) ParseFlags(version string) (*portainer.CLIFlags, error) {
 		SSLCert:           kingpin.Flag("sslcert", "Path to the SSL certificate used to secure the Portainer instance").Default(defaultSSLCertPath).String(),
 		SSLKey:            kingpin.Flag("sslkey", "Path to the SSL key used to secure the Portainer instance").Default(defaultSSLKeyPath).String(),
 		SyncInterval:      kingpin.Flag("sync-interval", "Duration between each synchronization via the external endpoints source").Default(defaultSyncInterval).String(),
+		Snapshot:          kingpin.Flag("snapshot", "Start a background job to create endpoint snapshots").Default(defaultSnapshot).Bool(),
+		SnapshotInterval:  kingpin.Flag("snapshot-interval", "Duration between each endpoint snapshot job").Default(defaultSnapshotInterval).String(),
 		AdminPassword:     kingpin.Flag("admin-password", "Hashed admin password").String(),
 		AdminPasswordFile: kingpin.Flag("admin-password-file", "Path to the file containing the password for the admin user").String(),
 		Labels:            pairs(kingpin.Flag("hide-label", "Hide containers with a specific label in the UI").Short('l')),
@@ -95,6 +98,11 @@ func (*Service) ValidateFlags(flags *portainer.CLIFlags) error {
 		return err
 	}
 
+	err = validateSnapshotInterval(*flags.SnapshotInterval)
+	if err != nil {
+		return err
+	}
+
 	if *flags.NoAuth && (*flags.AdminPassword != "" || *flags.AdminPasswordFile != "") {
 		return errNoAuthExcludeAdminPassword
 	}
@@ -108,15 +116,16 @@ func (*Service) ValidateFlags(flags *portainer.CLIFlags) error {
 
 func validateEndpointURL(endpointURL string) error {
 	if endpointURL != "" {
-		if !strings.HasPrefix(endpointURL, "unix://") && !strings.HasPrefix(endpointURL, "tcp://") {
+		if !strings.HasPrefix(endpointURL, "unix://") && !strings.HasPrefix(endpointURL, "tcp://") && !strings.HasPrefix(endpointURL, "npipe://") {
 			return errInvalidEndpointProtocol
 		}
 
-		if strings.HasPrefix(endpointURL, "unix://") {
+		if strings.HasPrefix(endpointURL, "unix://") || strings.HasPrefix(endpointURL, "npipe://") {
 			socketPath := strings.TrimPrefix(endpointURL, "unix://")
+			socketPath = strings.TrimPrefix(socketPath, "npipe://")
 			if _, err := os.Stat(socketPath); err != nil {
 				if os.IsNotExist(err) {
-					return errSocketNotFound
+					return errSocketOrNamedPipeNotFound
 				}
 				return err
 			}
@@ -152,6 +161,16 @@ func validateSyncInterval(syncInterval string) error {
 		_, err := time.ParseDuration(syncInterval)
 		if err != nil {
 			return errInvalidSyncInterval
+		}
+	}
+	return nil
+}
+
+func validateSnapshotInterval(snapshotInterval string) error {
+	if snapshotInterval != defaultSnapshotInterval {
+		_, err := time.ParseDuration(snapshotInterval)
+		if err != nil {
+			return errInvalidSnapshotInterval
 		}
 	}
 	return nil

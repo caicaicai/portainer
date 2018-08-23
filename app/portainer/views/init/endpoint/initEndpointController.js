@@ -1,9 +1,9 @@
 angular.module('portainer.app')
-.controller('InitEndpointController', ['$scope', '$state', 'EndpointService', 'StateManager', 'EndpointProvider', 'Notifications', 'ExtensionManager',
-function ($scope, $state, EndpointService, StateManager, EndpointProvider, Notifications, ExtensionManager) {
+.controller('InitEndpointController', ['$scope', '$state', 'EndpointService', 'StateManager', 'Notifications',
+function ($scope, $state, EndpointService, StateManager, Notifications) {
 
   if (!_.isEmpty($scope.applicationState.endpoint)) {
-    $state.go('docker.dashboard');
+    $state.go('portainer.home');
   }
 
   $scope.logo = StateManager.getState().application.logo;
@@ -29,23 +29,10 @@ function ($scope, $state, EndpointService, StateManager, EndpointProvider, Notif
   };
 
   $scope.createLocalEndpoint = function() {
-    var name = 'local';
-    var URL = 'unix:///var/run/docker.sock';
-    var endpoint;
-
     $scope.state.actionInProgress = true;
     EndpointService.createLocalEndpoint()
-    .then(function success(data) {
-      endpoint = data;
-      EndpointProvider.setEndpointID(endpoint.Id);
-      return ExtensionManager.initEndpointExtensions(endpoint.Id);
-    })
-    .then(function success(data) {
-      var extensions = data;
-      return StateManager.updateEndpointState(false, endpoint.Type, extensions);
-    })
-    .then(function success(data) {
-      $state.go('docker.dashboard');
+    .then(function success() {
+      $state.go('portainer.home');
     })
     .catch(function error(err) {
       Notifications.error('Failure', err, 'Unable to connect to the Docker environment');
@@ -87,17 +74,10 @@ function ($scope, $state, EndpointService, StateManager, EndpointProvider, Notif
   };
 
   function createAzureEndpoint(name, applicationId, tenantId, authenticationKey) {
-    var endpoint;
-
     $scope.state.actionInProgress = true;
     EndpointService.createAzureEndpoint(name, applicationId, tenantId, authenticationKey, 1, [])
-    .then(function success(data) {
-      endpoint = data;
-      EndpointProvider.setEndpointID(endpoint.Id);
-      return StateManager.updateEndpointState(false, endpoint.Type, []);
-    })
-    .then(function success(data) {
-      $state.go('azure.dashboard');
+    .then(function success() {
+      $state.go('portainer.home');
     })
     .catch(function error(err) {
       Notifications.error('Failure', err, 'Unable to connect to the Azure environment');
@@ -108,20 +88,10 @@ function ($scope, $state, EndpointService, StateManager, EndpointProvider, Notif
   }
 
   function createRemoteEndpoint(name, type, URL, PublicURL, TLS, TLSSkipVerify, TLSSKipClientVerify, TLSCAFile, TLSCertFile, TLSKeyFile) {
-    var endpoint;
     $scope.state.actionInProgress = true;
     EndpointService.createRemoteEndpoint(name, type, URL, PublicURL, 1, [], TLS, TLSSkipVerify, TLSSKipClientVerify, TLSCAFile, TLSCertFile, TLSKeyFile)
-    .then(function success(data) {
-      endpoint = data;
-      EndpointProvider.setEndpointID(endpoint.Id);
-      return ExtensionManager.initEndpointExtensions(endpoint.Id);
-    })
-    .then(function success(data) {
-      var extensions = data;
-      return StateManager.updateEndpointState(false, endpoint.Type, extensions);
-    })
-    .then(function success(data) {
-      $state.go('docker.dashboard');
+    .then(function success() {
+      $state.go('portainer.home');
     })
     .catch(function error(err) {
       Notifications.error('Failure', err, 'Unable to connect to the Docker environment');

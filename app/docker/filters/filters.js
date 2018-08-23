@@ -192,30 +192,57 @@ angular.module('portainer.docker')
     return '';
   };
 })
-.filter('availablenodecount', function () {
+.filter('availablenodecount', ['ConstraintsHelper', function (ConstraintsHelper) {
   'use strict';
-  return function (nodes) {
+  return function (nodes, service) {
     var availableNodes = 0;
     for (var i = 0; i < nodes.length; i++) {
       var node = nodes[i];
-      if (node.Availability === 'active' && node.Status === 'ready') {
+      if (node.Availability === 'active' && node.Status === 'ready' && ConstraintsHelper.matchesServiceConstraints(service, node)) {
         availableNodes++;
       }
     }
     return availableNodes;
   };
-})
+}])
 .filter('runningtaskscount', function () {
   'use strict';
   return function (tasks) {
     var runningTasks = 0;
     for (var i = 0; i < tasks.length; i++) {
       var task = tasks[i];
-      if (task.Status.State === 'running') {
+      if (task.Status.State === 'running' && task.DesiredState === 'running') {
         runningTasks++;
       }
     }
     return runningTasks;
+  };
+})
+.filter('runningcontainers', function () {
+  'use strict';
+  return function runningContainersFilter(containers) {
+    return containers.filter(function (container) {
+      return container.State === 'running';
+    }).length;
+  };
+})
+.filter('stoppedcontainers', function () {
+  'use strict';
+  return function stoppedContainersFilter(containers) {
+    return containers.filter(function (container) {
+      return container.State === 'exited';
+    }).length;
+  };
+})
+.filter('imagestotalsize', function () {
+  'use strict';
+  return function (images) {
+    var totalImageSize = 0;
+    for (var i = 0; i < images.length; i++) {
+      var item = images[i];
+      totalImageSize += item.VirtualSize;
+    }
+    return totalImageSize;
   };
 })
 .filter('tasknodename', function () {

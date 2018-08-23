@@ -54,7 +54,7 @@ info:
 
     **NOTE**: You can find more information on how to query the Docker API in the [Docker official documentation](https://docs.docker.com/engine/api/v1.30/) as well as in [this Portainer example](https://gist.github.com/deviantony/77026d402366b4b43fa5918d41bc42f8).
 
-  version: "1.18.2-dev"
+  version: "1.19.2-dev"
   title: "Portainer API"
   contact:
     email: "info@portainer.io"
@@ -247,7 +247,8 @@ paths:
       - name: "URL"
         in: "formData"
         type: "string"
-        description: "URL or IP address of a Docker host (example: docker.mydomain.tld:2375). Required if endpoint type is set to 1 or 2."
+        description: "URL or IP address of a Docker host (example: docker.mydomain.tld:2375).\
+          \ Defaults to local if not specified (Linux: /var/run/docker.sock, Windows: //./pipe/docker_engine)"
       - name: "PublicURL"
         in: "formData"
         type: "string"
@@ -319,7 +320,7 @@ paths:
       summary: "Inspect an endpoint"
       description: |
         Retrieve details abount an endpoint.
-        **Access policy**: administrator
+        **Access policy**: restricted
       operationId: "EndpointInspect"
       produces:
       - "application/json"
@@ -2815,7 +2816,7 @@ definitions:
         description: "Is analytics enabled"
       Version:
         type: "string"
-        example: "1.18.2-dev"
+        example: "1.19.2-dev"
         description: "Portainer API version"
   PublicSettingsInspectResponse:
     type: "object"
@@ -2896,6 +2897,21 @@ definitions:
         type: "string"
         example: "uid"
         description: "LDAP attribute which denotes the username"
+  LDAPGroupSearchSettings:
+    type: "object"
+    properties:
+      GroupBaseDN:
+        type: "string"
+        example: "dc=ldap,dc=domain,dc=tld"
+        description: "The distinguished name of the element from which the LDAP server will search for groups."
+      GroupFilter:
+        type: "string"
+        example: "(objectClass=account)"
+        description: "The LDAP search filter used to select group elements, optional."
+      GroupAttribute:
+        type: "string"
+        example: "member"
+        description: "LDAP attribute which denotes the group membership."
 
   LDAPSettings:
     type: "object"
@@ -2922,6 +2938,14 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/LDAPSearchSettings"
+      GroupSearchSettings:
+        type: "array"
+        items:
+          $ref: "#/definitions/LDAPGroupSearchSettings"
+      AutoCreateUsers:
+        type: "boolean"
+        example: "true"
+        description: "Automatically provision users and assign them to matching LDAP group names"
 
   Settings:
     type: "object"
@@ -3244,11 +3268,10 @@ definitions:
         example: "container"
         description: "Type of Docker resource. Valid values are: container, volume\
           \ service, secret, config or stack"
-      AdministratorsOnly:
+      Public:
         type: "boolean"
         example: true
-        description: "Restrict access to the associated resource to administrators\
-          \ only"
+        description: "Permit access to the associated resource to any user"
       Users:
         type: "array"
         description: "List of user identifiers with access to the associated resource"
@@ -3467,11 +3490,10 @@ definitions:
         example: "container"
         description: "Type of Docker resource. Valid values are: container, volume\
           \ service, secret, config or stack"
-      AdministratorsOnly:
+      Public:
         type: "boolean"
         example: true
-        description: "Restrict access to the associated resource to administrators\
-          \ only"
+        description: "Permit access to the associated resource to any user"
       Users:
         type: "array"
         description: "List of user identifiers with access to the associated resource"
@@ -3496,11 +3518,10 @@ definitions:
   ResourceControlUpdateRequest:
     type: "object"
     properties:
-      AdministratorsOnly:
+      Public:
         type: "boolean"
         example: false
-        description: "Restrict access to the associated resource to administrators\
-          \ only"
+        description: "Permit access to the associated resource to any user"
       Users:
         type: "array"
         description: "List of user identifiers with access to the associated resource"
@@ -4160,6 +4181,10 @@ definitions:
         type: "string"
         example: "https://github.com/openfaas/faas"
         description: "URL of a Git repository hosting the Stack file. Required when using the 'repository' deployment method."
+      RepositoryReferenceName:
+        type: "string"
+        example: "refs/heads/master"
+        description: "Reference name of a Git repository hosting the Stack file. Used in 'repository' deployment method."
       ComposeFilePathInRepository:
         type: "string"
         example: "docker-compose.yml"

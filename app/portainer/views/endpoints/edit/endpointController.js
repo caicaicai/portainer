@@ -45,7 +45,7 @@ function ($q, $scope, $state, $transition$, $filter, EndpointService, GroupServi
 
     $scope.state.actionInProgress = true;
     EndpointService.updateEndpoint(endpoint.Id, payload)
-    .then(function success(data) {
+    .then(function success() {
       Notifications.success('Endpoint updated', $scope.endpoint.Name);
       EndpointProvider.setEndpointPublicURL(endpoint.PublicURL);
       $state.go('portainer.endpoints', {}, {reload: true});
@@ -67,7 +67,7 @@ function ($q, $scope, $state, $transition$, $filter, EndpointService, GroupServi
     })
     .then(function success(data) {
       var endpoint = data.endpoint;
-      if (endpoint.URL.indexOf('unix://') === 0) {
+      if (endpoint.URL.indexOf('unix://') === 0 || endpoint.URL.indexOf('npipe://') === 0) {
         $scope.endpointType = 'local';
       } else {
         $scope.endpointType = 'remote';

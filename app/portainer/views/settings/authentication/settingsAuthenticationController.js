@@ -21,6 +21,14 @@ function ($q, $scope, Notifications, SettingsService, FileUploadService) {
   $scope.removeSearchConfiguration = function(index) {
     $scope.LDAPSettings.SearchSettings.splice(index, 1);
   };
+  
+  $scope.addGroupSearchConfiguration = function() {
+    $scope.LDAPSettings.GroupSearchSettings.push({ GroupBaseDN: '', GroupAttribute: '', GroupFilter: '' });
+  };
+
+  $scope.removeGroupSearchConfiguration = function(index) {
+    $scope.LDAPSettings.GroupSearchSettings.splice(index, 1);
+  };
 
   $scope.LDAPConnectivityCheck = function() {
     var settings = $scope.settings;
@@ -31,11 +39,11 @@ function ($q, $scope, Notifications, SettingsService, FileUploadService) {
 
     $scope.state.connectivityCheckInProgress = true;
     $q.when(!uploadRequired || FileUploadService.uploadLDAPTLSFiles(TLSCAFile, null, null))
-    .then(function success(data) {
+    .then(function success() {
       addLDAPDefaultPort(settings, $scope.LDAPSettings.TLSConfig.TLS);
       return SettingsService.checkLDAPConnectivity(settings);
     })
-    .then(function success(data) {
+    .then(function success() {
       $scope.state.failedConnectivityCheck = false;
       $scope.state.successfulConnectivityCheck = true;
       Notifications.success('Connection to LDAP successful');
@@ -60,11 +68,11 @@ function ($q, $scope, Notifications, SettingsService, FileUploadService) {
 
     $scope.state.actionInProgress = true;
     $q.when(!uploadRequired || FileUploadService.uploadLDAPTLSFiles(TLSCAFile, null, null))
-    .then(function success(data) {
+    .then(function success() {
       addLDAPDefaultPort(settings, $scope.LDAPSettings.TLSConfig.TLS);
       return SettingsService.update(settings);
     })
-    .then(function success(data) {
+    .then(function success() {
       Notifications.success('Authentication settings updated');
     })
     .catch(function error(err) {

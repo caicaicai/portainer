@@ -15,6 +15,7 @@ import (
 
 type updateComposeStackPayload struct {
 	StackFileContent string
+	Env              []portainer.Pair
 }
 
 func (payload *updateComposeStackPayload) Validate(r *http.Request) error {
@@ -61,8 +62,8 @@ func (handler *Handler) stackUpdate(w http.ResponseWriter, r *http.Request) *htt
 		return &httperror.HandlerError{http.StatusInternalServerError, "Unable to retrieve info from request context", err}
 	}
 
-	if resourceControl != nil {
-		if !securityContext.IsAdmin && !proxy.CanAccessStack(stack, resourceControl, securityContext.UserID, securityContext.UserMemberships) {
+	if !securityContext.IsAdmin {
+		if !proxy.CanAccessStack(stack, resourceControl, securityContext.UserID, securityContext.UserMemberships) {
 			return &httperror.HandlerError{http.StatusForbidden, "Access denied to resource", portainer.ErrResourceAccessDenied}
 		}
 	}
@@ -111,6 +112,8 @@ func (handler *Handler) updateComposeStack(r *http.Request, stack *portainer.Sta
 	if err != nil {
 		return &httperror.HandlerError{http.StatusBadRequest, "Invalid request payload", err}
 	}
+
+	stack.Env = payload.Env
 
 	stackFolder := strconv.Itoa(int(stack.ID))
 	_, err = handler.FileService.StoreStackFileFromBytes(stackFolder, stack.EntryPoint, []byte(payload.StackFileContent))

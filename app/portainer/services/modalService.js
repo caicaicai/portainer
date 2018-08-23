@@ -59,7 +59,7 @@ angular.module('portainer.app')
     box.find('.bootbox-input-checkbox').prop('checked', optionToggled);
   };
 
-  service.confirmAccessControlUpdate = function(callback, msg) {
+  service.confirmAccessControlUpdate = function(callback) {
     service.confirm({
       title: 'Are you sure ?',
       message: 'Changing the ownership of this resource will potentially restrict its management to some users.',
@@ -142,14 +142,28 @@ angular.module('portainer.app')
     }, false);
   };
 
-  service.confirmExperimentalFeature = function(callback) {
+  service.confirmEndpointSnapshot = function(callback) {
     service.confirm({
-      title: 'Experimental feature',
-      message: 'This feature is currently experimental, please use with caution.',
+      title: 'Are you sure?',
+      message: 'Triggering a manual refresh will poll each endpoint to retrieve its information, this may take a few moments.',
       buttons: {
         confirm: {
           label: 'Continue',
-          className: 'btn-danger'
+          className: 'btn-primary'
+        }
+      },
+      callback: callback
+    });
+  };
+
+  service.confirmImageExport = function(callback) {
+    service.confirm({
+      title: 'Caution',
+      message: 'The export may take several minutes, do not navigate away whilst the export is in progress.',
+      buttons: {
+        confirm: {
+          label: 'Continue',
+          className: 'btn-primary'
         }
       },
       callback: callback

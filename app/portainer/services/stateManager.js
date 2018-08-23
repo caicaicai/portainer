@@ -9,7 +9,20 @@ function StateManagerFactory($q, SystemService, InfoHelper, LocalStorage, Settin
     loading: true,
     application: {},
     endpoint: {},
-    UI: {}
+    UI: {
+      dismissedInfoPanels: {},
+      dismissedInfoHash: ''
+    }
+  };
+
+  manager.dismissInformationPanel = function(id) {
+    state.UI.dismissedInfoPanels[id] = true;
+    LocalStorage.storeUIState(state.UI);
+  };
+
+  manager.dismissImportantInformation = function(hash) {
+    state.UI.dismissedInfoHash = hash;
+    LocalStorage.storeUIState(state.UI);
   };
 
   manager.getState = function() {
@@ -25,12 +38,19 @@ function StateManagerFactory($q, SystemService, InfoHelper, LocalStorage, Settin
     LocalStorage.storeApplicationState(state.application);
   };
 
+  manager.updateSnapshotInterval = function(interval) {
+    state.application.snapshotInterval = interval;
+    LocalStorage.storeApplicationState(state.application);
+  };
+
  function assignStateFromStatusAndSettings(status, settings) {
    state.application.authentication = status.Authentication;
    state.application.analytics = status.Analytics;
    state.application.endpointManagement = status.EndpointManagement;
+   state.application.snapshot = status.Snapshot;
    state.application.version = status.Version;
    state.application.logo = settings.LogoURL;
+   state.application.snapshotInterval = settings.SnapshotInterval;
    state.application.validity = moment().unix();
  }
 
@@ -61,6 +81,11 @@ function StateManagerFactory($q, SystemService, InfoHelper, LocalStorage, Settin
   manager.initialize = function () {
     var deferred = $q.defer();
 
+    var UIState = LocalStorage.getUIState();
+    if (UIState) {
+      state.UI = UIState;
+    }
+
     var endpointState = LocalStorage.getEndpointState();
     if (endpointState) {
       state.endpoint = endpointState;
@@ -72,7 +97,7 @@ function StateManagerFactory($q, SystemService, InfoHelper, LocalStorage, Settin
       var cacheValidity = now - applicationState.validity;
       if (cacheValidity > APPLICATION_CACHE_VALIDITY) {
         loadApplicationState()
-        .then(function success(data) {
+        .then(function success() {
           deferred.resolve(state);
         })
         .catch(function error(err) {
@@ -85,7 +110,7 @@ function StateManagerFactory($q, SystemService, InfoHelper, LocalStorage, Settin
       }
     } else {
       loadApplicationState()
-      .then(function success(data) {
+      .then(function success() {
         deferred.resolve(state);
       })
       .catch(function error(err) {
@@ -110,14 +135,11 @@ function StateManagerFactory($q, SystemService, InfoHelper, LocalStorage, Settin
     return extensions;
   }
 
-  manager.updateEndpointState = function(loading, type, extensions) {
+  manager.updateEndpointState = function(name, type, extensions) {
     var deferred = $q.defer();
 
-    if (loading) {
-      state.loading = true;
-    }
-
     if (type === 3) {
+      state.endpoint.name = name;
       state.endpoint.mode = { provider: 'AZURE' };
       LocalStorage.storeEndpointState(state.endpoint);
       deferred.resolve();
@@ -132,6 +154,7 @@ function StateManagerFactory($q, SystemService, InfoHelper, LocalStorage, Settin
       var endpointMode = InfoHelper.determineEndpointMode(data.info, type);
       var endpointAPIVersion = parseFloat(data.version.ApiVersion);
       state.endpoint.mode = endpointMode;
+      state.endpoint.name = name;
       state.endpoint.apiVersion = endpointAPIVersion;
       state.endpoint.extensions = assignExtensions(extensions);
       LocalStorage.storeEndpointState(state.endpoint);

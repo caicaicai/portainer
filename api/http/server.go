@@ -11,6 +11,7 @@ import (
 	"github.com/portainer/portainer/http/handler/endpointproxy"
 	"github.com/portainer/portainer/http/handler/endpoints"
 	"github.com/portainer/portainer/http/handler/file"
+	"github.com/portainer/portainer/http/handler/motd"
 	"github.com/portainer/portainer/http/handler/registries"
 	"github.com/portainer/portainer/http/handler/resourcecontrols"
 	"github.com/portainer/portainer/http/handler/settings"
@@ -40,6 +41,8 @@ type Server struct {
 	ComposeStackManager    portainer.ComposeStackManager
 	CryptoService          portainer.CryptoService
 	SignatureService       portainer.DigitalSignatureService
+	JobScheduler           portainer.JobScheduler
+	Snapshotter            portainer.Snapshotter
 	DockerHubService       portainer.DockerHubService
 	EndpointService        portainer.EndpointService
 	EndpointGroupService   portainer.EndpointGroupService
@@ -90,6 +93,8 @@ func (server *Server) Start() error {
 	authHandler.JWTService = server.JWTService
 	authHandler.LDAPService = server.LDAPService
 	authHandler.SettingsService = server.SettingsService
+	authHandler.TeamService = server.TeamService
+	authHandler.TeamMembershipService = server.TeamMembershipService
 
 	var dockerHubHandler = dockerhub.NewHandler(requestBouncer)
 	dockerHubHandler.DockerHubService = server.DockerHubService
@@ -99,6 +104,7 @@ func (server *Server) Start() error {
 	endpointHandler.EndpointGroupService = server.EndpointGroupService
 	endpointHandler.FileService = server.FileService
 	endpointHandler.ProxyManager = proxyManager
+	endpointHandler.Snapshotter = server.Snapshotter
 
 	var endpointGroupHandler = endpointgroups.NewHandler(requestBouncer)
 	endpointGroupHandler.EndpointGroupService = server.EndpointGroupService
@@ -110,6 +116,8 @@ func (server *Server) Start() error {
 
 	var fileHandler = file.NewHandler(filepath.Join(server.AssetsPath, "public"))
 
+	var motdHandler = motd.NewHandler(requestBouncer)
+
 	var registryHandler = registries.NewHandler(requestBouncer)
 	registryHandler.RegistryService = server.RegistryService
 
@@ -120,6 +128,7 @@ func (server *Server) Start() error {
 	settingsHandler.SettingsService = server.SettingsService
 	settingsHandler.LDAPService = server.LDAPService
 	settingsHandler.FileService = server.FileService
+	settingsHandler.JobScheduler = server.JobScheduler
 
 	var stackHandler = stacks.NewHandler(requestBouncer)
 	stackHandler.FileService = server.FileService
@@ -145,6 +154,7 @@ func (server *Server) Start() error {
 
 	var templatesHandler = templates.NewHandler(requestBouncer)
 	templatesHandler.TemplateService = server.TemplateService
+	templatesHandler.SettingsService = server.SettingsService
 
 	var uploadHandler = upload.NewHandler(requestBouncer)
 	uploadHandler.FileService = server.FileService
@@ -168,6 +178,7 @@ func (server *Server) Start() error {
 		EndpointHandler:        endpointHandler,
 		EndpointProxyHandler:   endpointProxyHandler,
 		FileHandler:            fileHandler,
+		MOTDHandler:            motdHandler,
 		RegistryHandler:        registryHandler,
 		ResourceControlHandler: resourceControlHandler,
 		SettingsHandler:        settingsHandler,
