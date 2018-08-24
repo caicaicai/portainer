@@ -42,7 +42,7 @@
         <table class="table">
           <tbody>
             <tr>
-              <td>Endpoint</td>
+              <td>终端</td>
               <td>
                 {{ endpoint.Name }}
                 <span class="small text-muted space-left"><i class="fa fa-microchip"></i> {{ info.NCPU }}<i class="fa fa-memory space-left"></i> {{ info.MemTotal | humansize }}</span>
@@ -54,7 +54,7 @@
               <td>{{ endpoint.URL | stripprotocol }}</td>
             </tr>
             <tr>
-              <td>Tags</td>
+              <td>标签</td>
               <td>
                 <span ng-if="endpoint.Tags.length === 0">
                   -

@@ -23,33 +23,33 @@
               </th>
               <th>
                 <a ng-click="$ctrl.changeOrderBy('Status')">
-                  Status
+                  状态
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Status' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Status' && $ctrl.state.reverseOrder"></i>
                 </a>
               </th>
               <th ng-if="$ctrl.showSlotColumn">
                 <a ng-click="$ctrl.changeOrderBy('Slot')">
-                  Slot
+                  槽
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Slot' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Slot' && $ctrl.state.reverseOrder"></i>
                 </a>
               </th>
               <th>
                 <a ng-click="$ctrl.changeOrderBy('NodeId')">
-                  Node
+                  节点
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'NodeId' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'NodeId' && $ctrl.state.reverseOrder"></i>
                 </a>
               </th>
               <th>
                 <a ng-click="$ctrl.changeOrderBy('Updated')">
-                  Last Update
+                  最后更新
                   <i class="fa fa-sort-alpha-down" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Updated' && !$ctrl.state.reverseOrder"></i>
                   <i class="fa fa-sort-alpha-up" aria-hidden="true" ng-if="$ctrl.state.orderBy === 'Updated' && $ctrl.state.reverseOrder"></i>
                 </a>
               </th>
-              <th>Actions</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody>
@@ -69,10 +69,10 @@
               </td>
             </tr>
             <tr ng-if="!$ctrl.dataset">
-              <td colspan="6" class="text-center text-muted">Loading...</td>
+              <td colspan="6" class="text-center text-muted">加载中...</td>
             </tr>
             <tr ng-if="$ctrl.state.filteredDataSet.length === 0">
-              <td colspan="6" class="text-center text-muted">No task available.</td>
+              <td colspan="6" class="text-center text-muted">没有可用任务.</td>
             </tr>
           </tbody>
         </table>
@@ -82,7 +82,7 @@
           <form class="form-inline">
             <span class="limitSelector">
               <span style="margin-right: 5px;">
-                Items per page
+                每页数量
               </span>
               <select class="form-control" ng-model="$ctrl.state.paginatedItemLimit" ng-change="$ctrl.changePaginationLimit()">
                 <option value="0">All</option>

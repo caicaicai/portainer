@@ -2,8 +2,9 @@
 <div id="sidebar-wrapper">
   <div class="sidebar-header">
     <a ui-sref="portainer.home">
-      <img ng-if="logo" ng-src="{{ logo }}" class="img-responsive logo">
-      <img ng-if="!logo" src="images/logo.png" class="img-responsive logo" alt="Portainer">
+      <!-- <img ng-if="logo" ng-src="{{ logo }}" class="img-responsive logo">
+      <img ng-if="!logo" src="images/logo.png" class="img-responsive logo" alt="Portainer"> -->
+      <span style="line-height: 60px;">五星PAAS管理平台</span>
     </a>
     <a ng-click="toggleSidebar()"><span class="menu-icon glyphicon glyphicon-transfer"></span></a>
   </div>
@@ -61,12 +62,12 @@
       <div class="sidebar-sublist" ng-if="toggle && ($state.current.name === 'portainer.settings' || $state.current.name === 'portainer.settings.authentication' || $state.current.name === 'portainer.about') && applicationState.application.authentication && isAdmin">
         <a ui-sref="portainer.settings.authentication" ui-sref-active="active">Authentication</a></div>
       <div class="sidebar-sublist" ng-if="toggle && ($state.current.name === 'portainer.settings' || $state.current.name === 'portainer.settings.authentication' || $state.current.name === 'portainer.about')">
-        <a ui-sref="portainer.about" ui-sref-active="active">About</a>
+        <!-- <a ui-sref="portainer.about" ui-sref-active="active">About</a> -->
       </div>
     </li>
   </ul>
   <div class="sidebar-footer-content">
-    <img src="images/logo_small.png" class="img-responsive logo" alt="Portainer">
+    <!-- <img src="images/logo_small.png" class="img-responsive logo" alt="Portainer"> -->
     <span class="version">{{ uiVersion }}</span>
   </div>
   </div>

@@ -34,18 +34,18 @@
           <div class="form-group">
             <div class="col-sm-12">
               <span class="small text-muted">
-                Note: you can click on the upload icon <span class="fa fa-upload" aria-hidden="true"></span> to push an image
-                or on the download icon <span class="fa fa-download" aria-hidden="true"></span> to pull an image
-                or on the trash icon <span class="fa fa-trash-alt" aria-hidden="true"></span> to delete a tag.
+                注意: 你可以通过点击上传图标 <span class="fa fa-upload" aria-hidden="true"></span> 来推送镜像
+                或者下载图标 <span class="fa fa-download" aria-hidden="true"></span> 来拉取镜像
+                或者删除图标 <span class="fa fa-trash-alt" aria-hidden="true"></span> 来删除tag.
               </span>
             </div>
             <div class="col-sm-12">
               <span id="downloadResourceHint" class="createResource" style="display: none; margin-left: 0;">
-                Download in progress...
+                正在下载...
                 <i class="fa fa-circle-notch fa-spin" aria-hidden="true" style="margin-left: 2px;"></i>
               </span>
               <span id="uploadResourceHint" class="createResource" style="display: none; margin-left: 0;">
-                Upload in progress...
+                正在上传...
                 <i class="fa fa-circle-notch fa-spin" aria-hidden="true" style="margin-left: 2px;"></i>
               </span>
             </div>
@@ -98,32 +98,32 @@
               <td>ID</td>
               <td>
                 {{ image.Id }}
-                <button class="btn btn-xs btn-danger" ng-click="removeImage(image.Id)"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>Delete this image</button>
+                <button class="btn btn-xs btn-danger" ng-click="removeImage(image.Id)"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>删除这个镜像</button>
                 <button class="btn btn-xs btn-primary" ng-click="exportImage(image)" button-spinner="$ctrl.exportInProgress" ng-disabled="state.exportInProgress">
                     <i class="fa fa-download space-right" aria-hidden="true"></i>
-                    <span ng-hide="state.exportInProgress">Export this image</span>
-                    <span ng-show="state.exportInProgress">Export in progress...</span>
+                    <span ng-hide="state.exportInProgress">导出这个镜像</span>
+                    <span ng-show="state.exportInProgress">正在导出镜像...</span>
                 </button>
               </td>
             </tr>
             <tr ng-if="image.Parent">
-              <td>Parent</td>
+              <td>父镜像</td>
               <td><a ui-sref="docker.images.image({id: image.Parent})">{{ image.Parent }}</a></td>
             </tr>
             <tr>
-              <td>Size</td>
+              <td>大小</td>
               <td>{{ image.VirtualSize|humansize }}</td>
             </tr>
             <tr>
-              <td>Created</td>
+              <td>创建日期</td>
               <td>{{ image.Created|getisodate }}</td>
             </tr>
             <tr>
-              <td>Build</td>
+              <td>构建</td>
               <td>Docker {{ image.DockerVersion }} on {{ image.Os}}, {{ image.Architecture }}</td>
             </tr>
             <tr ng-if="image.Author">
-              <td>Author</td>
+              <td>作者</td>
               <td>{{ image.Author }}</td>
             </tr>
           </tbody>

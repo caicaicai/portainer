@@ -13,7 +13,7 @@
         <table class="table">
           <tbody>
             <tr>
-              <td>Name</td>
+              <td>名称</td>
               <td>{{ network.Name }}</td>
             </tr>
             <tr>
@@ -24,19 +24,19 @@
               </td>
             </tr>
             <tr>
-              <td>Driver</td>
+              <td>驱动</td>
               <td>{{ network.Driver }}</td>
             </tr>
             <tr>
-              <td>Scope</td>
+              <td>域</td>
               <td>{{ network.Scope }}</td>
             </tr>
             <tr ng-if="network.IPAM.Config[0].Subnet">
-              <td>Subnet</td>
+              <td>子网</td>
               <td>{{ network.IPAM.Config[0].Subnet }}</td>
             </tr>
             <tr ng-if="network.IPAM.Config[0].Gateway">
-              <td>Gateway</td>
+              <td>网关</td>
               <td>{{ network.IPAM.Config[0].Gateway }}</td>
             </tr>
           </tbody>

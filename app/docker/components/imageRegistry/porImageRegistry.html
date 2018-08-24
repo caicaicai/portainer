@@ -1,5 +1,5 @@
 <div class="form-group">
-  <label for="image_name" ng-class="$ctrl.labelClass" class="control-label text-left">Image</label>
+  <label for="image_name" ng-class="$ctrl.labelClass" class="control-label text-left">镜像</label>
   <div ng-class="$ctrl.inputClass">
     <input type="text" class="form-control" uib-typeahead="image for image in $ctrl.availableImages | filter:$viewValue | limitTo:5"
       ng-model="$ctrl.image" name="image_name" placeholder="e.g. myImage:myTag" required>

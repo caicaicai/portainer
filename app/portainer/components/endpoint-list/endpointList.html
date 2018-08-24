@@ -26,7 +26,7 @@
           on-select="$ctrl.dashboardAction"
         ></endpoint-item>
         <div ng-if="!$ctrl.endpoints" class="text-center text-muted">
-          Loading...
+          加载中...
         </div>
         <div ng-if="($ctrl.endpoints | filter:$ctrl.state.textFilter).length === 0" class="text-center text-muted">
           No endpoint available.

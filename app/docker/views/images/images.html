@@ -30,7 +30,7 @@
           <!-- !tag-note -->
           <div ng-if="applicationState.endpoint.mode.agentProxy && applicationState.endpoint.mode.provider === 'DOCKER_SWARM_MODE'">
             <div class="col-sm-12 form-section-title">
-              Deployment
+              部署
             </div>
             <!-- node-selection -->
             <node-selector
@@ -41,8 +41,8 @@
           <div class="form-group">
             <div class="col-sm-12">
               <button type="button" class="btn btn-primary btn-sm" ng-disabled="state.actionInProgress || !formValues.Image" ng-click="pullImage()" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">Pull the image</span>
-                <span ng-show="state.actionInProgress">Download in progress...</span>
+                <span ng-hide="state.actionInProgress">拉取镜像</span>
+                <span ng-show="state.actionInProgress">正在拉取镜像...</span>
               </button>
             </div>
           </div>

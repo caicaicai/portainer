@@ -50,7 +50,7 @@
           on-delete="$ctrl.deleteAction"
         ></template-item>
         <div ng-if="!$ctrl.templates" class="text-center text-muted">
-          Loading...
+          加载中...
         </div>
         <div ng-if="($ctrl.templates | filter: $ctrl.filterByType | filter:$ctrl.filterByCategory | filter:$ctrl.state.textFilter).length === 0" class="text-center text-muted">
           No templates available.

@@ -16,26 +16,26 @@
             </uib-tab-heading>
             <form class="form-horizontal">
               <div class="col-sm-12 form-section-title">
-                Naming
+                名称
               </div>
               <!-- names -->
               <div class="form-group">
                 <span class="col-sm-12 text-muted small">
-                  You can specify multiple names to your image.
+                  你可以给你的镜像指定多个名称
                 </span>
               </div>
               <div class="form-group">
                 <div class="col-sm-12">
-                  <label class="control-label text-left">Names</label>
+                  <label class="control-label text-left">名称</label>
                   <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addImageName()">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i> add additional name
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 增加额外名称
                   </span>
                 </div>
               </div>
               <!-- !names -->
               <div class="form-group" ng-if="formValues.ImageNames.length === 0">
                 <span class="col-sm-12 text-danger small">
-                  <i class="fa fa-exclamation-triangle space-right" aria-hidden="true"></i>You must specify at least one name for the image.
+                  <i class="fa fa-exclamation-triangle space-right" aria-hidden="true"></i>你至少也要给镜像指定一个名称.
                 </span>
               </div>
               <!-- name-input-list -->
@@ -51,7 +51,7 @@
                       <div ng-repeat="item in formValues.ImageNames track by $index" style="margin-top: 2px;">
                         <!-- name-input -->
                         <div class="input-group col-sm-5 input-group-sm">
-                          <span class="input-group-addon">name</span>
+                          <span class="input-group-addon">名称</span>
                           <input type="text" class="form-control" ng-model="item.Name" placeholder="e.g. myImage:myTag" auto-focus>
                           <span class="input-group-addon"><i ng-class="{true: 'fa fa-check green-icon', false: 'fa fa-times red-icon'}[item.Name !== '']" aria-hidden="true"></i></span>
                         </div>
@@ -71,7 +71,7 @@
               <!-- !name-input-list -->
               <!-- build-method -->
               <div class="col-sm-12 form-section-title">
-                Build method
+                构建方式
               </div>
               <div class="form-group"></div>
               <div class="form-group" style="margin-bottom: 0">
@@ -81,7 +81,7 @@
                     <label for="method_editor">
                       <div class="boxselector_header">
                         <i class="fa fa-edit" aria-hidden="true" style="margin-right: 2px;"></i>
-                        Web editor
+                        网页编辑器
                       </div>
                       <p>Use our Web editor</p>
                     </label>
@@ -91,7 +91,7 @@
                     <label for="method_upload">
                       <div class="boxselector_header">
                         <i class="fa fa-upload" aria-hidden="true" style="margin-right: 2px;"></i>
-                        Upload
+                        上传
                       </div>
                       <p>Upload a tarball or a Dockerfile from your computer</p>
                     </label>

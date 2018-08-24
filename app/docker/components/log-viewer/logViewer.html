@@ -7,7 +7,7 @@
           <div class="form-group">
             <div class="col-sm-12">
               <label for="tls" class="control-label text-left">
-                Auto-refresh logs
+                自动刷新日志
                 <portainer-tooltip position="bottom" message="Disabling this option allows you to pause the log collection process and the auto-scrolling."></portainer-tooltip>
               </label>
               <label class="switch" style="margin-left: 20px;">
@@ -28,7 +28,7 @@
           <div class="form-group">
             <div class="col-sm-12">
               <label for="tls" class="control-label text-left">
-                Display timestamps
+                显示timestamps
               </label>
               <label class="switch" style="margin-left: 20px;">
                <input type="checkbox" ng-model="$ctrl.displayTimestamps"><i></i>
@@ -37,7 +37,7 @@
           </div>
           <div class="form-group">
             <label for="logs_search" class="col-sm-1 control-label text-left">
-              Search
+              搜索
             </label>
             <div class="col-sm-11">
               <input class="form-control" type="text" name="logs_search" ng-model="$ctrl.state.search" ng-change="$ctrl.state.selectedLines.length = 0;" placeholder="Filter...">
@@ -45,7 +45,7 @@
           </div>
           <div class="form-group">
             <label for="lines_count" class="col-sm-1 control-label text-left">
-              Lines
+              行数
             </label>
             <div class="col-sm-11">
               <input class="form-control" type="number" name="lines_count" ng-model="$ctrl.lineCount" placeholder="Enter no of lines...">
@@ -53,12 +53,12 @@
           </div>
           <div class="form-group" ng-if="$ctrl.state.copySupported">
             <label class="col-sm-1 control-label text-left">
-              Actions
+              操作
             </label>
             <div class="col-sm-11">
-              <button class="btn btn-primary btn-sm" ng-click="$ctrl.copy()" ng-disabled="($ctrl.state.filteredLogs.length === 1 && !$ctrl.state.filteredLogs[0]) || !$ctrl.state.filteredLogs.length"><i class="fa fa-copy space-right" aria-hidden="true"></i>Copy</button>
-              <button class="btn btn-primary btn-sm" ng-click="$ctrl.copySelection()" ng-disabled="($ctrl.state.filteredLogs.length === 1 && !$ctrl.state.filteredLogs[0]) || !$ctrl.state.filteredLogs.length || !$ctrl.state.selectedLines.length"><i class="fa fa-copy space-right" aria-hidden="true"></i>Copy selected lines</button>
-              <button class="btn btn-primary btn-sm" ng-click="$ctrl.clearSelection()" ng-disabled="$ctrl.state.selectedLines.length === 0"><i class="fa fa-times space-right" aria-hidden="true"></i>Unselect</button>
+              <button class="btn btn-primary btn-sm" ng-click="$ctrl.copy()" ng-disabled="($ctrl.state.filteredLogs.length === 1 && !$ctrl.state.filteredLogs[0]) || !$ctrl.state.filteredLogs.length"><i class="fa fa-copy space-right" aria-hidden="true"></i>复制</button>
+              <button class="btn btn-primary btn-sm" ng-click="$ctrl.copySelection()" ng-disabled="($ctrl.state.filteredLogs.length === 1 && !$ctrl.state.filteredLogs[0]) || !$ctrl.state.filteredLogs.length || !$ctrl.state.selectedLines.length"><i class="fa fa-copy space-right" aria-hidden="true"></i>复制选中的行</button>
+              <button class="btn btn-primary btn-sm" ng-click="$ctrl.clearSelection()" ng-disabled="$ctrl.state.selectedLines.length === 0"><i class="fa fa-times space-right" aria-hidden="true"></i>取消选择</button>
               <span>
                 <i id="refreshRateChange" class="fa fa-check green-icon" aria-hidden="true" style="margin-left: 7px; display: none;"></i>
               </span>

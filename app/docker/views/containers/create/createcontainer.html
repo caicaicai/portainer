@@ -19,11 +19,11 @@
           </div>
           <!-- !name-input -->
           <div class="col-sm-12 form-section-title">
-            Image configuration
+            镜像配置
           </div>
           <div ng-if="!formValues.Registry && fromContainer">
             <i class="fa fa-exclamation-triangle orange-icon" aria-hidden="true"></i>
-            <span class="small text-danger" style="margin-left: 5px;">The Docker registry for the <code>{{ config.Image }}</code> image is not registered inside Portainer, you will not be able to create a container. Please register that registry first.</span>
+            <span class="small text-danger" style="margin-left: 5px;">The Docker registry for the <code>{{ config.Image }}</code> image is not registered inside PAAS, you will not be able to create a container. Please register that registry first.</span>
           </div>
           <div ng-if="formValues.Registry || !fromContainer">
             <!-- image-and-registry -->
@@ -39,8 +39,8 @@
             <div class="form-group">
               <div class="col-sm-12">
                 <label for="ownership" class="control-label text-left">
-                  Always pull the image
-                  <portainer-tooltip position="bottom" message="When enabled, Portainer will automatically try to pull the specified image before creating the container."></portainer-tooltip>
+                  总是拉取最新镜像
+                  <portainer-tooltip position="bottom" message="When enabled, PAAS will automatically try to pull the specified image before creating the container."></portainer-tooltip>
                 </label>
                 <label class="switch" style="margin-left: 20px;">
                   <input type="checkbox" ng-model="formValues.alwaysPull"><i></i>
@@ -50,13 +50,13 @@
             <!-- !always-pull -->
           </div>
           <div class="col-sm-12 form-section-title">
-            Ports configuration
+            端口配置
           </div>
           <!-- publish-exposed-ports -->
           <div class="form-group">
             <div class="col-sm-12">
               <label class="control-label text-left">
-                Publish all exposed ports
+                发布所有暴露的端口
                 <portainer-tooltip position="bottom" message="When enabled, Portainer will let Docker automatically map a random port on the host to each one defined in the image Dockerfile."></portainer-tooltip>
               </label>
               <label class="switch" style="margin-left: 20px;">
@@ -68,9 +68,9 @@
           <!-- port-mapping -->
           <div class="form-group">
             <div class="col-sm-12">
-              <label class="control-label text-left">Port mapping</label>
+              <label class="control-label text-left">端口映射</label>
               <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addPortBinding()">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> map additional port
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> 映射额外端口
               </span>
             </div>
             <!-- port-mapping-input-list -->
@@ -78,7 +78,7 @@
               <div ng-repeat="portBinding in config.HostConfig.PortBindings" style="margin-top: 2px;">
                 <!-- host-port -->
                 <div class="input-group col-sm-4 input-group-sm">
-                  <span class="input-group-addon">host</span>
+                  <span class="input-group-addon">主机</span>
                   <input type="text" class="form-control" ng-model="portBinding.hostPort" placeholder="e.g. 80 or 1.2.3.4:80 (optional)">
                 </div>
                 <!-- !host-port -->
@@ -87,7 +87,7 @@
                 </span>
                 <!-- container-port -->
                 <div class="input-group col-sm-4 input-group-sm">
-                  <span class="input-group-addon">container</span>
+                  <span class="input-group-addon">容器</span>
                   <input type="text" class="form-control" ng-model="portBinding.containerPort" placeholder="e.g. 80">
                 </div>
                 <!-- !container-port -->
@@ -109,7 +109,7 @@
           <!-- !port-mapping -->
           <div ng-if="applicationState.endpoint.mode.agentProxy && applicationState.endpoint.mode.provider === 'DOCKER_SWARM_MODE'">
             <div class="col-sm-12 form-section-title">
-              Deployment
+              部署
             </div>
             <!-- node-selection -->
             <node-selector
@@ -122,13 +122,13 @@
           <!-- !access-control -->
           <!-- actions -->
           <div class="col-sm-12 form-section-title">
-            Actions
+            操作
           </div>
           <div class="form-group">
             <div class="col-sm-12">
               <button type="button" class="btn btn-primary btn-sm" ng-disabled="state.actionInProgress || !config.Image || (!formValues.Registry && fromContainer)" ng-click="create()" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">Deploy the container</span>
-                <span ng-show="state.actionInProgress">Deployment in progress...</span>
+                <span ng-hide="state.actionInProgress">部署容器</span>
+                <span ng-show="state.actionInProgress">容器部署中...</span>
               </button>
             </div>
           </div>
@@ -145,13 +145,13 @@
       <rd-widget-header icon="fa-cog" title-text="Advanced container settings"></rd-widget-header>
       <rd-widget-body>
         <ul class="nav nav-pills nav-justified">
-          <li class="active interactive"><a data-target="#command" data-toggle="tab">Command</a></li>
-          <li class="interactive"><a data-target="#volumes" data-toggle="tab">Volumes</a></li>
-          <li class="interactive"><a data-target="#network" data-toggle="tab">Network</a></li>
-          <li class="interactive"><a data-target="#env" data-toggle="tab">Env</a></li>
-          <li class="interactive"><a data-target="#labels" data-toggle="tab">Labels</a></li>
-          <li class="interactive"><a data-target="#restart-policy" data-toggle="tab">Restart policy</a></li>
-          <li class="interactive"><a data-target="#runtime-resources" ng-click="refreshSlider()" data-toggle="tab">Runtime & Resources</a></li>
+          <li class="active interactive"><a data-target="#command" data-toggle="tab">指令</a></li>
+          <li class="interactive"><a data-target="#volumes" data-toggle="tab">卷</a></li>
+          <li class="interactive"><a data-target="#network" data-toggle="tab">网络</a></li>
+          <li class="interactive"><a data-target="#env" data-toggle="tab">环境变量</a></li>
+          <li class="interactive"><a data-target="#labels" data-toggle="tab">标签</a></li>
+          <li class="interactive"><a data-target="#restart-policy" data-toggle="tab">重启策略</a></li>
+          <li class="interactive"><a data-target="#runtime-resources" ng-click="refreshSlider()" data-toggle="tab">运行时 & 资源</a></li>
         </ul>
         <!-- tab-content -->
         <div class="tab-content">
@@ -160,7 +160,7 @@
             <form class="form-horizontal" style="margin-top: 15px;">
               <!-- command-input -->
               <div class="form-group">
-                <label for="container_command" class="col-sm-2 col-lg-1 control-label text-left">Command</label>
+                <label for="container_command" class="col-sm-2 col-lg-1 control-label text-left">指令</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" ng-model="config.Cmd" id="container_command" placeholder="e.g. /usr/bin/nginx -t -c /mynginx.conf">
                 </div>
@@ -168,7 +168,7 @@
               <!-- !command-input -->
               <!-- entrypoint-input -->
               <div class="form-group">
-                <label for="container_entrypoint" class="col-sm-2 col-lg-1 control-label text-left">Entry Point</label>
+                <label for="container_entrypoint" class="col-sm-2 col-lg-1 control-label text-left">入口点</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" ng-model="config.Entrypoint" id="container_entrypoint" placeholder="e.g. /bin/sh -c">
                 </div>
@@ -176,11 +176,11 @@
               <!-- !entrypoint-input -->
               <!-- workdir-user-input -->
               <div class="form-group">
-                <label for="container_workingdir" class="col-sm-2 col-lg-1 control-label text-left">Working Dir</label>
+                <label for="container_workingdir" class="col-sm-2 col-lg-1 control-label text-left">工作目录</label>
                 <div class="col-sm-4">
                   <input type="text" class="form-control" ng-model="config.WorkingDir" id="container_workingdir" placeholder="e.g. /myapp">
                 </div>
-                <label for="container_user" class="col-sm-1 control-label text-left">User</label>
+                <label for="container_user" class="col-sm-1 control-label text-left">用户</label>
                 <div class="col-sm-4">
                   <input type="text" class="form-control" ng-model="config.User" id="container_user" placeholder="e.g. nginx">
                 </div>
@@ -188,7 +188,7 @@
               <!-- !workdir-user-input -->
               <!-- console -->
               <div class="form-group">
-                <label for="container_console" class="col-sm-2 col-lg-1 control-label text-left">Console</label>
+                <label for="container_console" class="col-sm-2 col-lg-1 control-label text-left">控制台</label>
                 <div class="col-sm-10 col-lg-11">
                   <div class="col-sm-4">
                     <label class="radio-inline">
@@ -228,9 +228,9 @@
               <!-- volumes -->
               <div class="form-group">
                 <div class="col-sm-12" style="margin-top: 5px;">
-                  <label class="control-label text-left">Volume mapping</label>
+                  <label class="control-label text-left">存储卷挂载</label>
                   <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addVolume()">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i> map additional volume
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 挂载额外的存储卷
                   </span>
                 </div>
                 <!-- volumes-input-list -->
@@ -240,7 +240,7 @@
                     <div class="col-sm-12 form-inline" style="margin-top: 10px;">
                       <!-- container-path -->
                       <div class="input-group input-group-sm col-sm-6">
-                        <span class="input-group-addon">container</span>
+                        <span class="input-group-addon">容器</span>
                         <input type="text" class="form-control" ng-model="volume.containerPath" placeholder="e.g. /path/in/container">
                       </div>
                       <!-- !container-path -->
@@ -262,9 +262,9 @@
                       <i class="fa fa-long-arrow-alt-right" aria-hidden="true"></i>
                       <!-- volume -->
                       <div class="input-group input-group-sm col-sm-6" ng-if="volume.type === 'volume'">
-                        <span class="input-group-addon">volume</span>
+                        <span class="input-group-addon">卷</span>
                         <select class="form-control" ng-model="volume.name">
-                          <option selected disabled hidden value="">Select a volume</option>
+                          <option selected disabled hidden value="">选择一个卷</option>
                           <option ng-repeat="vol in availableVolumes" ng-value="vol.Name">{{ vol.Name|truncate:30}}</option>
                         </select>
                       </div>
@@ -278,8 +278,8 @@
                       <!-- read-only -->
                       <div class="input-group input-group-sm col-sm-5" style="margin-left: 5px;">
                         <div class="btn-group btn-group-sm">
-                          <label class="btn btn-primary" ng-model="volume.readOnly" uib-btn-radio="false">Writable</label>
-                          <label class="btn btn-primary" ng-model="volume.readOnly" uib-btn-radio="true">Read-only</label>
+                          <label class="btn btn-primary" ng-model="volume.readOnly" uib-btn-radio="false">可写入</label>
+                          <label class="btn btn-primary" ng-model="volume.readOnly" uib-btn-radio="true">只读</label>
                         </div>
                       </div>
                       <!-- !read-only -->
@@ -303,10 +303,10 @@
               </div>
               <!-- network-input -->
               <div class="form-group">
-                <label for="container_network" class="col-sm-2 col-lg-1 control-label text-left">Network</label>
+                <label for="container_network" class="col-sm-2 col-lg-1 control-label text-left">网络</label>
                 <div class="col-sm-9">
                   <select class="form-control" ng-model="config.HostConfig.NetworkMode" id="container_network" ng-change="resetNetworkConfig()">
-                    <option selected disabled hidden value="">Select a network</option>
+                    <option selected disabled hidden value="">选择一个网络</option>
                     <option ng-repeat="net in availableNetworks" ng-value="net.Name">{{ net.Name }}</option>
                   </select>
                 </div>
@@ -314,17 +314,17 @@
               <!-- !network-input -->
               <!-- container-name-input -->
               <div class="form-group" ng-if="config.HostConfig.NetworkMode == 'container'">
-                <label for="container_network_container" class="col-sm-2 col-lg-1 control-label text-left">Container</label>
+                <label for="container_network_container" class="col-sm-2 col-lg-1 control-label text-left">容器</label>
                 <div class="col-sm-9">
                   <select ng-options="container|containername for container in runningContainers" class="form-control" ng-model="formValues.NetworkContainer">
-                    <option selected disabled hidden value="">Select a container</option>
+                    <option selected disabled hidden value="">选择一个容器</option>
                   </select>
                 </div>
               </div>
               <!-- !container-name-input -->
               <!-- hostname-input -->
               <div class="form-group">
-                <label for="container_hostname" class="col-sm-2 col-lg-1 control-label text-left">Hostname</label>
+                <label for="container_hostname" class="col-sm-2 col-lg-1 control-label text-left">主机名</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" ng-model="config.Hostname" id="container_hostname" placeholder="e.g. web01">
                 </div>
@@ -332,7 +332,7 @@
               <!-- !hostname-input -->
               <!-- domainname-input -->
               <div class="form-group">
-                <label for="container_domainname" class="col-sm-2 col-lg-1 control-label text-left">Domain Name</label>
+                <label for="container_domainname" class="col-sm-2 col-lg-1 control-label text-left">域名</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" ng-model="config.Domainname" id="container_domainname" placeholder="e.g. example.com">
                 </div>
@@ -340,7 +340,7 @@
               <!-- !domainname -->
               <!-- mac-address-input -->
               <div class="form-group">
-                <label for="container_macaddress" class="col-sm-2 col-lg-1 control-label text-left">Mac Address</label>
+                <label for="container_macaddress" class="col-sm-2 col-lg-1 control-label text-left">Mac地址</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" ng-model="formValues.MacAddress" id="container_macaddress" placeholder="e.g. 12-34-56-78-9a-bc">
                 </div>
@@ -348,7 +348,7 @@
               <!-- !mac-address-input -->
               <!-- ipv4-input -->
               <div class="form-group">
-                <label for="container_ipv4" class="col-sm-2 col-lg-1 control-label text-left">IPv4 Address</label>
+                <label for="container_ipv4" class="col-sm-2 col-lg-1 control-label text-left">IPv4地址</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" ng-model="formValues.IPv4" id="container_ipv4" placeholder="e.g. 172.20.0.7">
                 </div>
@@ -356,7 +356,7 @@
               <!-- !ipv4-input -->
               <!-- ipv6-input -->
               <div class="form-group">
-                <label for="container_ipv6" class="col-sm-2 col-lg-1 control-label text-left">IPv6 Address</label>
+                <label for="container_ipv6" class="col-sm-2 col-lg-1 control-label text-left">IPv6地址</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" ng-model="formValues.IPv6" id="container_ipv6" placeholder="e.g. a:b:c:d::1234">
                 </div>
@@ -394,20 +394,20 @@
               <!-- labels -->
               <div class="form-group">
                 <div class="col-sm-12" style="margin-top: 5px;">
-                  <label class="control-label text-left">Labels</label>
+                  <label class="control-label text-left">标签</label>
                   <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addLabel()">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i> add label
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 增加标签
                   </span>
                 </div>
                 <!-- labels-input-list -->
                 <div class="col-sm-12 form-inline" style="margin-top: 10px;">
                   <div ng-repeat="label in formValues.Labels" style="margin-top: 2px;">
                     <div class="input-group col-sm-5 input-group-sm">
-                      <span class="input-group-addon">name</span>
+                      <span class="input-group-addon">名称</span>
                       <input type="text" class="form-control" ng-model="label.name" placeholder="e.g. com.example.foo">
                     </div>
                     <div class="input-group col-sm-5 input-group-sm">
-                      <span class="input-group-addon">value</span>
+                      <span class="input-group-addon">值</span>
                       <input type="text" class="form-control" ng-model="label.value" placeholder="e.g. bar">
                     </div>
                     <button class="btn btn-sm btn-danger" type="button" ng-click="removeLabel($index)">
@@ -427,20 +427,20 @@
               <!-- environment-variables -->
               <div class="form-group">
                 <div class="col-sm-12" style="margin-top: 5px;">
-                  <label class="control-label text-left">Environment variables</label>
+                  <label class="control-label text-left">环境变量</label>
                   <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addEnvironmentVariable()">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i> add environment variable
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 增加环境变量
                   </span>
                 </div>
                 <!-- environment-variable-input-list -->
                 <div class="col-sm-12 form-inline" style="margin-top: 10px;">
                   <div ng-repeat="variable in config.Env" style="margin-top: 2px;">
                     <div class="input-group col-sm-5 input-group-sm">
-                      <span class="input-group-addon">name</span>
+                      <span class="input-group-addon">名称</span>
                       <input type="text" class="form-control" ng-model="variable.name" placeholder="e.g. FOO">
                     </div>
                     <div class="input-group col-sm-5 input-group-sm">
-                      <span class="input-group-addon">value</span>
+                      <span class="input-group-addon">值</span>
                       <input type="text" class="form-control" ng-model="variable.value" placeholder="e.g. bar">
                     </div>
                     <button class="btn btn-sm btn-danger" type="button" ng-click="removeEnvironmentVariable($index)">
@@ -460,20 +460,20 @@
               <div class="form-group">
                 <div class="col-sm-12">
                   <label class="control-label text-left">
-                    Restart policy
+                    重启策略
                   </label>
                   <div class="btn-group btn-group-sm" style="margin-left: 20px;">
                     <label class="btn btn-primary" ng-model="config.HostConfig.RestartPolicy.Name" uib-btn-radio="'no'">
-                      Never
+                      从不
                     </label>
                     <label class="btn btn-primary" ng-model="config.HostConfig.RestartPolicy.Name" uib-btn-radio="'always'">
-                      Always
+                      总是
                     </label>
                     <label class="btn btn-primary" ng-model="config.HostConfig.RestartPolicy.Name" uib-btn-radio="'on-failure'">
-                      On failure
+                      当失败时
                     </label>
                     <label class="btn btn-primary" ng-model="config.HostConfig.RestartPolicy.Name" uib-btn-radio="'unless-stopped'">
-                      Unless stopped
+                      除非停止
                     </label>
                   </div>
                 </div>
@@ -485,13 +485,13 @@
           <div class="tab-pane" id="runtime-resources">
             <form class="form-horizontal" style="margin-top: 15px;">
               <div class="col-sm-12 form-section-title">
-                Runtime
+                运行时
               </div>
               <!-- privileged-mode -->
               <div class="form-group" ng-if="isAdmin || allowPrivilegedMode">
                 <div class="col-sm-12">
                   <label for="privileged_mode" class="control-label text-left">
-                    Privileged mode
+                    特权模式
                   </label>
                   <label class="switch" style="margin-left: 20px;">
                     <input type="checkbox" name="privileged_mode" ng-model="config.HostConfig.Privileged"><i></i>
@@ -504,20 +504,20 @@
               <!-- devices -->
               <div class="form-group">
                 <div class="col-sm-12" style="margin-top: 5px;">
-                  <label class="control-label text-left">Devices</label>
+                  <label class="control-label text-left">设备</label>
                   <span class="label label-default interactive" style="margin-left: 10px;" ng-click="addDevice()">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i> add device
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 增加设备
                   </span>
                 </div>
                <!-- devices-input-list -->
                 <div class="col-sm-12 form-inline" style="margin-top: 10px;">
                   <div ng-repeat="device in config.HostConfig.Devices" style="margin-top: 2px;">
                     <div class="input-group col-sm-5 input-group-sm">
-                      <span class="input-group-addon">host</span>
+                      <span class="input-group-addon">主机</span>
                       <input type="text" class="form-control" ng-model="device.pathOnHost" placeholder="e.g. /dev/tty0">
                     </div>
                     <div class="input-group col-sm-5 input-group-sm">
-                      <span class="input-group-addon">container</span>
+                      <span class="input-group-addon">容器</span>
                       <input type="text" class="form-control" ng-model="device.pathInContainer" placeholder="e.g. /dev/tty0">
                     </div>
                     <button class="btn btn-sm btn-danger" type="button" ng-click="removeDevice($index)">
@@ -529,12 +529,12 @@
               </div>
               <!-- !devices-->
               <div class="col-sm-12 form-section-title">
-                Resources
+                资源
               </div>
               <!-- memory-reservation-input -->
               <div class="form-group">
                 <label for="memory-reservation" class="col-sm-3 col-lg-2 control-label text-left" style="margin-top: 20px;">
-                  Memory reservation
+                  保留内存
                 </label>
                 <div class="col-sm-3">
                   <slider model="formValues.MemoryReservation" floor="0" ceil="state.sliderMaxMemory" step="256" ng-if="state.sliderMaxMemory"></slider>
@@ -544,7 +544,7 @@
                 </div>
                 <div class="col-sm-4">
                   <p class="small text-muted" style="margin-top: 7px;">
-                    Memory soft limit (<b>MB</b>)
+                    内存软限制 (<b>MB</b>)
                   </p>
                 </div>
               </div>
@@ -552,7 +552,7 @@
               <!-- memory-limit-input -->
               <div class="form-group">
                 <label for="memory-limit" class="col-sm-3 col-lg-2 control-label text-left" style="margin-top: 20px;">
-                  Memory limit
+                  内存限制
                 </label>
                 <div class="col-sm-3">
                   <slider model="formValues.MemoryLimit" floor="0" ceil="state.sliderMaxMemory" step="256" ng-if="state.sliderMaxMemory"></slider>
@@ -562,7 +562,7 @@
                 </div>
                 <div class="col-sm-4">
                   <p class="small text-muted" style="margin-top: 7px;">
-                    Memory limit (<b>MB</b>)
+                    内存限制 (<b>MB</b>)
                   </p>
                 </div>
               </div>
@@ -570,14 +570,14 @@
               <!-- cpu-limit-input -->
               <div class="form-group">
                 <label for="cpu-limit" class="col-sm-3 col-lg-2 control-label text-left" style="margin-top: 20px;">
-                  CPU limit
+                  CPU限制
                 </label>
                 <div class="col-sm-5">
                   <slider model="formValues.CpuLimit" floor="0" ceil="state.sliderMaxCpu" step="0.25" precision="2" ng-if="state.sliderMaxCpu"></slider>
                 </div>
                 <div class="col-sm-4" style="margin-top: 20px;">
                   <p class="small text-muted">
-                    Maximum CPU usage
+                    最大CPU使用量
                   </p>
                 </div>
               </div>

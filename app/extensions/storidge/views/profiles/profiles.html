@@ -63,7 +63,7 @@
     <rd-widget>
       <rd-widget-header icon="fa-sticky-note" title-text="Profiles">
         <div class="pull-right">
-          Items per page:
+          每页数量:
           <select ng-model="state.pagination_count" ng-change="changePaginationCount()">
             <option value="0">All</option>
             <option value="10">10</option>
@@ -75,7 +75,7 @@
       </rd-widget-header>
       <rd-widget-taskbar classes="col-md-12">
         <div class="pull-left">
-          <button type="button" class="btn btn-danger" ng-click="removeProfiles()" ng-disabled="!state.selectedItemCount"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>Remove</button>
+          <button type="button" class="btn btn-danger" ng-click="removeProfiles()" ng-disabled="!state.selectedItemCount"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>移除</button>
         </div>
         <div class="pull-right">
           <input type="text" id="filter" ng-model="state.filter" placeholder="Filter..." class="form-control input-sm" />
@@ -106,7 +106,7 @@
                 </td>
               </tr>
               <tr ng-if="!profiles">
-                <td colspan="3" class="text-center text-muted">Loading...</td>
+                <td colspan="3" class="text-center text-muted">加载中...</td>
               </tr>
               <tr ng-if="state.filteredProfiles.length == 0">
                 <td colspan="3" class="text-center text-muted">No profiles available.</td>

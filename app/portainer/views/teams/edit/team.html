@@ -39,7 +39,7 @@
     <rd-widget>
       <rd-widget-header classes="col-sm-12 col-md-6 nopadding" icon="fa-users" title-text="Users">
         <div class="pull-md-right pull-lg-right">
-          Items per page:
+          每页数量:
           <select ng-model="state.pagination_count_users" ng-change="changePaginationCountUsers()">
             <option value="0">All</option>
             <option value="10">10</option>
@@ -81,7 +81,7 @@
                 </td>
               </tr>
               <tr ng-if="!users">
-                <td colspan="2" class="text-center text-muted">Loading...</td>
+                <td colspan="2" class="text-center text-muted">加载中...</td>
               </tr>
               <tr ng-if="users.length === 0 || (users | filter:state.filterUsers).length === 0">
                 <td colspan="2" class="text-center text-muted">No users.</td>
@@ -99,7 +99,7 @@
     <rd-widget>
       <rd-widget-header classes="col-sm-12 col-md-6 nopadding" icon="fa-users" title-text="Team members">
         <div class="pull-md-right pull-lg-right">
-          Items per page:
+          每页数量:
           <select ng-model="state.pagination_count_members" ng-change="changePaginationCountGroupMembers()">
             <option value="0">All</option>
             <option value="10">10</option>
@@ -157,7 +157,7 @@
                 </td>
               </tr>
               <tr ng-if="!teamMembers">
-                <td colspan="2" class="text-center text-muted">Loading...</td>
+                <td colspan="2" class="text-center text-muted">加载中...</td>
               </tr>
               <tr ng-if="teamMembers.length === 0 || (teamMembers | filter:state.filterGroupMembers).length === 0">
                 <td colspan="2" class="text-center text-muted">No team members.</td>

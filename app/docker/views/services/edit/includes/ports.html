@@ -3,7 +3,7 @@
     <rd-widget-header icon="fa-tasks" title-text="Published ports">
       <div class="nopadding">
         <a class="btn btn-default btn-sm pull-right" ng-click="isUpdating ||addPublishedPort(service)" ng-disabled="isUpdating">
-          <i class="fa fa-plus-circle" aria-hidden="true"></i> port mapping
+          <i class="fa fa-plus-circle" aria-hidden="true"></i> 端口映射
         </a>
       </div>
     </rd-widget-header>
@@ -14,11 +14,11 @@
       <table class="table" >
         <thead>
           <tr>
-            <th>Host port</th>
-            <th>Container port</th>
-            <th>Protocol</th>
-            <th>Publish mode</th>
-            <th>Actions</th>
+            <th>主机端口</th>
+            <th>容器端口</th>
+            <th>协议</th>
+            <th>发布模式</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
@@ -65,13 +65,13 @@
     <rd-widget-footer>
       <div class="btn-toolbar" role="toolbar">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-primary btn-sm" ng-disabled="!hasChanges(service, ['Ports'])" ng-click="updateService(service)">Apply changes</button>
+          <button type="button" class="btn btn-primary btn-sm" ng-disabled="!hasChanges(service, ['Ports'])" ng-click="updateService(service)">应用更改</button>
           <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-            <li><a ng-click="cancelChanges(service, ['Ports'])">Reset changes</a></li>
-            <li><a ng-click="cancelChanges(service)">Reset all changes</a></li>
+            <li><a ng-click="cancelChanges(service, ['Ports'])">重置更改</a></li>
+            <li><a ng-click="cancelChanges(service)">重置所有更改</a></li>
           </ul>
         </div>
       </div>

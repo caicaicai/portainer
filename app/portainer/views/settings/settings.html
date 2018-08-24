@@ -125,13 +125,13 @@
                   <tr ng-repeat="label in settings.BlackListedLabels">
                     <td>{{ label.name }}</td>
                     <td>{{ label.value }}</td>
-                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="removeFilteredContainerLabel($index)"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>Remove</button></td>
+                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="removeFilteredContainerLabel($index)"><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>移除</button></td>
                   </tr>
                   <tr ng-if="settings.BlackListedLabels.length === 0">
                     <td colspan="3" class="text-center text-muted">No filter available.</td>
                   </tr>
                   <tr ng-if="!settings.BlackListedLabels">
-                    <td colspan="3" class="text-center text-muted">Loading...</td>
+                    <td colspan="3" class="text-center text-muted">加载中...</td>
                   </tr>
                 </tbody>
               </table>

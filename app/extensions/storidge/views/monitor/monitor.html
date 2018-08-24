@@ -126,7 +126,7 @@
     <rd-widget>
       <rd-widget-header icon="fa-history" title-text="Cluster events">
         <div class="pull-right">
-          Items per page:
+          每页数量
           <select ng-model="state.pagination_count" ng-change="changePaginationCount()">
             <option value="0">All</option>
             <option value="10">10</option>
@@ -184,7 +184,7 @@
                 <td>{{ event.Content }}</td>
               </tr>
               <tr ng-if="!events">
-                <td colspan="4" class="text-center text-muted">Loading...</td>
+                <td colspan="4" class="text-center text-muted">加载中...</td>
               </tr>
               <tr ng-if="events.length === 0">
                 <td colspan="4" class="text-center text-muted">No events available.</td>

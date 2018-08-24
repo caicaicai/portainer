@@ -12,7 +12,7 @@
 <div class="row" ng-if="!node">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div ng-if="loading">
-      <i class="fa fa-cog fa-spin"></i> Loading...
+      <i class="fa fa-cog fa-spin"></i> 加载中...
     </div>
 
     <rd-widget ng-if="!loading">
@@ -32,21 +32,21 @@
         <table class="table">
           <tbody>
             <tr>
-              <td>Name</td>
+              <td>名称</td>
               <td>
                 <input type="text" class="input-sm" ng-model="node.Name" placeholder="e.g. my-manager" ng-change="updateNodeAttribute(node, 'Name')">
               </td>
             </tr>
             <tr>
-              <td>Host name</td>
+              <td>主机名</td>
               <td>{{ node.Hostname }}</td>
             </tr>
             <tr>
-              <td>Role</td>
+              <td>角色</td>
               <td>{{ node.Role }}</td>
             </tr>
             <tr>
-              <td>Availability</td>
+              <td>可用性</td>
               <td>
                 <div class="input-group input-group-sm">
                   <select name="nodeAvailability" class="selectpicker form-control" ng-model="node.Availability" ng-change="updateNodeAttribute(node, 'Availability')">
@@ -58,7 +58,7 @@
               </td>
             </tr>
             <tr>
-              <td>Status</td>
+              <td>状态</td>
               <td><span class="label label-{{ node.Status|nodestatusbadge }}">{{ node.Status }}</span></td>
             </tr>
           </tbody>
@@ -70,12 +70,12 @@
         </p>
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group" role="group">
-            <button type="button" class="btn btn-primary" ng-disabled="!hasChanges(node, ['Name', 'Availability'])" ng-click="updateNode(node)">Apply changes</button>
+            <button type="button" class="btn btn-primary" ng-disabled="!hasChanges(node, ['Name', 'Availability'])" ng-click="updateNode(node)">应用更改</button>
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a ng-click="cancelChanges(node)">Reset changes</a></li>
+              <li><a ng-click="cancelChanges(node)">重置更改</a></li>
             </ul>
           </div>
         </div>
@@ -92,18 +92,18 @@
         <table class="table">
           <tbody>
             <tr>
-              <td>Leader</td>
+              <td>主节点</td>
               <td>
                 <span ng-if="node.Leader"><i class="fa fa-check green-icon" aria-hidden="true"></i> Yes</span>
                 <span ng-if="!node.Leader"><i class="fa fa-times red-icon" aria-hidden="true"></i> No</span>
               </td>
             </tr>
             <tr>
-              <td>Reachability</td>
+              <td>可达性</td>
               <td>{{ node.Reachability }}</td>
             </tr>
             <tr>
-              <td>Manager address</td>
+              <td>管理地址</td>
               <td>{{ node.ManagerAddr }}</td>
             </tr>
           </tbody>
@@ -217,12 +217,12 @@
       <rd-widget-footer>
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group" role="group">
-            <button type="button" class="btn btn-primary btn-sm" ng-disabled="!hasChanges(node, ['Labels'])" ng-click="updateNode(node)">Apply changes</button>
+            <button type="button" class="btn btn-primary btn-sm" ng-disabled="!hasChanges(node, ['Labels'])" ng-click="updateNode(node)">应用更改</button>
             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a ng-click="cancelChanges(node)">Reset changes</a></li>
+              <li><a ng-click="cancelChanges(node)">重置更改</a></li>
             </ul>
           </div>
         </div>

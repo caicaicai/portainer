@@ -6,7 +6,7 @@
       <table class="table">
         <tbody>
           <tr>
-            <td>Restart condition</td>
+            <td>重启条件</td>
             <td>
               <div class="input-group input-group-sm">
                 <select class="selectpicker form-control" ng-model="service.RestartCondition" ng-change="updateServiceAttribute(service, 'RestartCondition')" ng-disabled="isUpdating">
@@ -61,13 +61,13 @@
     <rd-widget-footer>
       <div class="btn-toolbar" role="toolbar">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-primary btn-sm" ng-disabled="!hasChanges(service, ['RestartCondition', 'RestartDelay', 'RestartMaxAttempts', 'RestartWindow'])" ng-click="updateService(service)">Apply changes</button>
+          <button type="button" class="btn btn-primary btn-sm" ng-disabled="!hasChanges(service, ['RestartCondition', 'RestartDelay', 'RestartMaxAttempts', 'RestartWindow'])" ng-click="updateService(service)">应用更改</button>
           <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-            <li><a ng-click="cancelChanges(service, ['RestartCondition', 'RestartDelay', 'RestartMaxAttempts', 'RestartWindow'])">Reset changes</a></li>
-            <li><a ng-click="cancelChanges(service)">Reset all changes</a></li>
+            <li><a ng-click="cancelChanges(service, ['RestartCondition', 'RestartDelay', 'RestartMaxAttempts', 'RestartWindow'])">重置更改</a></li>
+            <li><a ng-click="cancelChanges(service)">重置所有更改</a></li>
           </ul>
         </div>
       </div>
