@@ -62,6 +62,17 @@ Partial support for the following Docker versions (some features may not be avai
 
 * Docker 1.9
 
+## How to build
+
+* yarn install
+* grunt build
+* grunt run-dev  ACCESS PAGE： http://localhost:9000
+* grunt "release:linux:amd64"
+* mv dist/portainer-linux-amd64 dist/portainer
+* docker build -t 'harbor.efivestar.com/portainer:dev' -f build/linux/Dockerfile .
+
+* http://blog.51cto.com/nosmoking/1968891
+
 ## Licensing
 
 Portainer is licensed under the zlib license. See [LICENSE](./LICENSE) for reference.
