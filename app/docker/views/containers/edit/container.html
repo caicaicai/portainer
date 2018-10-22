@@ -222,31 +222,13 @@
                   </table>
                 </td>
               </tr>
-<<<<<<< HEAD
-              <tr ng-if="container.HostConfig.RestartPolicy.Name !== 'no'">
-                <td>重启策略</td>
-                <td>
-                  <table class="table table-bordered table-condensed">
-                    <tr>
-                      <td class="col-md-3">名称</td>
-                      <td>{{ container.HostConfig.RestartPolicy.Name }}</td>
-                    </tr>
-                    <tr>
-                      <td class="col-md-3">最大重试次数</td>
-                      <td>
-                        {{ container.HostConfig.RestartPolicy.MaximumRetryCount }}
-                      </td>
-                    </tr>
-                  </table>
-=======
               <tr>
-                <td>Restart policies</td>
+                <td>重启策略</td>
                 <td>
                   <container-restart-policy ng-if="container"
                     name="container.HostConfig.RestartPolicy.Name"
                     maximum-retry-count="container.HostConfig.RestartPolicy.MaximumRetryCount"
                     update-restart-policy="updateRestartPolicy(name, maximumRetryCount)">
->>>>>>> master
                 </td>
               </tr>
             </tbody>

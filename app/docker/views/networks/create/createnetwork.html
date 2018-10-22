@@ -168,16 +168,10 @@
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-<<<<<<< HEAD
-              <button type="button" class="btn btn-primary btn-sm" ng-disabled="state.actionInProgress || !config.Name" ng-click="create()" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">创建网络</span>
-                <span ng-show="state.actionInProgress">正在创建网络...</span>
-=======
               <button type="button" class="btn btn-primary btn-sm" ng-disabled="state.actionInProgress || !config.Name || (config.Driver === 'macvlan' && networkCreationForm.$invalid)"
                 ng-click="create()" button-spinner="state.actionInProgress">
-                <span ng-hide="state.actionInProgress">Create the network</span>
-                <span ng-show="state.actionInProgress">Creating network...</span>
->>>>>>> master
+                <span ng-hide="state.actionInProgress">创建网络</span>
+                <span ng-show="state.actionInProgress">正在创建网络...</span>
               </button>
               <i id="createResourceSpinner" class="fa fa-cog fa-spin" style="margin-left: 5px; display: none;"></i>
               <span class="text-danger" ng-if="state.formValidationError" style="margin-left: 5px;">{{ state.formValidationError }}</span>
