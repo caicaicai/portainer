@@ -31,6 +31,14 @@
               <td>域</td>
               <td>{{ network.Scope }}</td>
             </tr>
+            <tr>
+              <td>Attachable</td>
+              <td>{{ network.Attachable }}</td>
+            </tr>
+            <tr>
+              <td>Internal</td>
+              <td>{{ network.Internal }}</td>
+            </tr>
             <tr ng-if="network.IPAM.Config[0].Subnet">
               <td>子网</td>
               <td>{{ network.IPAM.Config[0].Subnet }}</td>

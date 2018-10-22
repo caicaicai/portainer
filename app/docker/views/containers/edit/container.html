@@ -186,7 +186,7 @@
             <tbody>
               <tr>
                 <td>镜像</td>
-                <td><a ui-sref="docker.images.image({ id: container.Image, nodeName: nodeName })">{{ container.Image }}</a></td>
+                <td><a ui-sref="docker.images.image({ id: container.Image, nodeName: nodeName })">{{ container.Config.Image}}@{{container.Image}}</a></td>
               </tr>
               <tr ng-if="portBindings.length > 0">
                 <td>端口配置</td>
@@ -222,6 +222,7 @@
                   </table>
                 </td>
               </tr>
+<<<<<<< HEAD
               <tr ng-if="container.HostConfig.RestartPolicy.Name !== 'no'">
                 <td>重启策略</td>
                 <td>
@@ -237,6 +238,15 @@
                       </td>
                     </tr>
                   </table>
+=======
+              <tr>
+                <td>Restart policies</td>
+                <td>
+                  <container-restart-policy ng-if="container"
+                    name="container.HostConfig.RestartPolicy.Name"
+                    maximum-retry-count="container.HostConfig.RestartPolicy.MaximumRetryCount"
+                    update-restart-policy="updateRestartPolicy(name, maximumRetryCount)">
+>>>>>>> master
                 </td>
               </tr>
             </tbody>
