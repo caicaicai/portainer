@@ -51,8 +51,12 @@ module.exports = function(grunt) {
     grunt.task.run(['config:prod', 'clean:all', 'shell:buildBinary:' + p + ':' + a, 'shell:downloadDockerBinary:' + p + ':' + a, 'before-copy', 'copy:assets', 'after-copy']);
   });
 
+  grunt.task.registerTask('devopsbuild', 'devopsbuild:<platform>:<arch>', function(p, a) {
+    grunt.task.run(['config:prod', 'clean:all', 'shell:buildBinaryOnDevOps:' + p + ':' + a, 'shell:downloadDockerBinary:' + p + ':' + a, 'before-copy', 'copy:assets', 'after-copy']);
+  });
+
   grunt.registerTask('lint', ['eslint']);
-  grunt.registerTask('run-dev', ['build', 'shell:run:' + arch, 'watch:build']);
+  grunt.registerTask('run-dev', ['build', 'shell:run', 'watch:build']);
   grunt.registerTask('clear', ['clean:app']);
 
   // Load content of `vendor.yml` to src.jsVendor, src.cssVendor and src.angularVendor
@@ -81,7 +85,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     root: 'dist',
     distdir: 'dist/public',
-    shippedDockerVersion: '18.09.0',
+    shippedDockerVersion: '18.09.3',
     shippedDockerVersionWindows: '17.09.0-ce',
     pkg: grunt.file.readJSON('package.json'),
     config: gruntfile_cfg.config,
@@ -260,20 +264,38 @@ gruntfile_cfg.replace = {
 };
 
 function shell_buildBinary(p, a) {
-  var binfile = 'dist/portainer-' + p + '-' + a;
-  return [
-    'if [ -f ' + ((p === 'windows') ? binfile + '.exe' : binfile) + ' ]; then',
-    'echo "Portainer binary exists";',
-    'else',
-    'build/build_in_container.sh ' + p + ' ' + a + ';',
-    'fi'
-  ].join(' ');
+  var binfile = 'dist/portainer';
+  if (p === 'linux') {
+    return [
+      'if [ -f ' + (binfile) + ' ]; then',
+      'echo "Portainer binary exists";',
+      'else',
+      'build/build_binary.sh ' + p + ' ' + a + ';',
+      'fi'
+    ].join(' ');
+  } else {
+    return [
+      'powershell -Command "& {if (Get-Item -Path ' + binfile + '.exe -ErrorAction:SilentlyContinue) {',
+      'Write-Host "Portainer binary exists"',
+      '} else {',
+      '& ".\\build\\build_binary.ps1" -platform ' + p + ' -arch ' + a + '',
+      '}}"'
+    ].join(' ');
+  }
 }
 
-function shell_run(arch) {
+function shell_buildBinaryOnDevOps(p, a) {
+  if (p === 'linux') {
+    return 'build/build_binary_devops.sh ' + p + ' ' + a + ';';
+  } else {
+    return 'powershell -Command ".\\build\\build_binary_devops.ps1 -platform ' + p + ' -arch ' + a + '"';
+  }
+}
+
+function shell_run() {
   return [
     'docker rm -f portainer',
-    'docker run -d -p 9000:9000 -v $(pwd)/dist:/app -v /tmp/portainer:/data -v /var/run/docker.sock:/var/run/docker.sock:z --name portainer portainer/base /app/portainer-linux-' + arch + ' --no-analytics --template-file /app/templates.json'
+    'docker run -d -p 9000:9000 -v $(pwd)/dist:/app -v /tmp/portainer:/data -v /var/run/docker.sock:/var/run/docker.sock:z --name portainer portainer/base /app/portainer --no-analytics --template-file /app/templates.json'
   ].join(';');
 }
 
@@ -283,17 +305,28 @@ function shell_downloadDockerBinary(p, a) {
   var ip = ((ps[p] === undefined) ? p : ps[p]);
   var ia = ((as[a] === undefined) ? a : as[a]);
   var binaryVersion = ((p === 'windows' ? '<%= shippedDockerVersionWindows %>' : '<%= shippedDockerVersion %>'));
-  return [
-    'if [ -f ' + ((p === 'windows') ? 'dist/docker.exe' : 'dist/docker') + ' ]; then',
-    'echo "Docker binary exists";',
-    'else',
-    'build/download_docker_binary.sh ' + ip + ' ' + ia + ' ' + binaryVersion + ';',
-    'fi'
-  ].join(' ');
+  if (p === 'linux') {
+    return [
+      'if [ -f dist/docker ]; then',
+      'echo "Docker binary exists";',
+      'else',
+      'build/download_docker_binary.sh ' + ip + ' ' + ia + ' ' + binaryVersion + ';',
+      'fi'
+    ].join(' ');
+  } else {
+    return [
+      'powershell -Command "& {if (Get-Item -Path dist/docker.exe -ErrorAction:SilentlyContinue) {',
+      'Write-Host "Docker binary exists"',
+      '} else {',
+      '& ".\\build\\download_docker_binary.ps1" -docker_version ' + binaryVersion + '',
+      '}}"'
+    ].join(' ');
+  }
 }
 
 gruntfile_cfg.shell = {
   buildBinary: { command: shell_buildBinary },
+  buildBinaryOnDevOps: { command: shell_buildBinaryOnDevOps },
   run: { command: shell_run },
   downloadDockerBinary: { command: shell_downloadDockerBinary }
 };

@@ -124,6 +124,19 @@
           <div class="col-sm-12 form-section-title">
             操作
           </div>
+          <!-- autoremove -->
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="ownership" class="control-label text-left">
+                Auto remove
+                <portainer-tooltip position="bottom" message="When enabled, Portainer will automatically remove the container when it exits. This is useful when you want to use the container only once."></portainer-tooltip>
+              </label>
+              <label class="switch" style="margin-left: 20px;">
+                <input type="checkbox" ng-model="config.HostConfig.AutoRemove"><i></i>
+              </label>
+            </div>
+          </div>
+          <!-- !autoremove -->
           <div class="form-group">
             <div class="col-sm-12">
               <button type="button" class="btn btn-primary btn-sm" ng-disabled="state.actionInProgress || !config.Image || (!formValues.Registry && fromContainer)" ng-click="create()" button-spinner="state.actionInProgress">
@@ -162,7 +175,7 @@
             <form class="form-horizontal" style="margin-top: 15px;">
               <!-- command-input -->
               <div class="form-group">
-                <label for="container_command" class="col-sm-2 col-lg-1 control-label text-left">指令 & 日志</label>
+                <label for="container_command" class="col-sm-2 col-lg-1 control-label text-left">指令</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" ng-model="config.Cmd" id="container_command" placeholder="e.g. /usr/bin/nginx -t -c /mynginx.conf">
                 </div>
@@ -320,7 +333,7 @@
                         <span class="input-group-addon">卷</span>
                         <select class="form-control" ng-model="volume.name">
                           <option selected disabled hidden value="">选择一个卷</option>
-                          <option ng-repeat="vol in availableVolumes" ng-value="vol.Name">{{ vol.Name|truncate:30}}</option>
+                          <option ng-repeat="vol in availableVolumes" ng-value="vol.Name">{{ vol.Name|truncate:30}} - {{ vol.Driver|truncate:30}}</option>
                         </select>
                       </div>
                       <!-- !volume -->
